@@ -1,0 +1,39 @@
+.rouletteContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .roulette {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border: 10px solid #000;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: transform 3s ease-out;
+  }
+  
+  .spinning {
+    transform: rotate(1440deg); /* 4 full spins */
+  }
+  
+  .rouletteItem {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 0;
+    text-align: right;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+  
+  .spinButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
