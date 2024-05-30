@@ -34,6 +34,9 @@ const Links =()=>{
                 {links.map((link =>(
                     <NavLink item = {link} key = {link.title}/>
                 )))}
+            {/* we map through the links array to get each one of the objects and pass them to the NavLink
+            subcomponent as a param */}
+
             </div>
         </div>
     )

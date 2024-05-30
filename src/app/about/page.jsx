@@ -2,6 +2,7 @@
 
 import { userVerify } from "@/lib/endpointCalls";
 import styles from "./about.module.css";
+import Link from "next/link";
 
 const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,6 +22,8 @@ const AboutPage = () => {
             <form onSubmit={handleSubmit}>
                 <button type="submit">Click me</button>
             </form>
+
+            <Link href={"/"}>Click here</Link>
         </div>
     );
 }
