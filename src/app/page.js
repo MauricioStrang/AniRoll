@@ -1,13 +1,14 @@
 
-import Roulette from '../components/Roulette';  
+import styles from "./home.module.css"
 
-export default function Home() {
 
-  const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+const Home= () => {
+
   return (
-    <div>
-      <h1>Roulette Game</h1>
-      <Roulette items={items} />
+    <div className={styles.container}>
     </div>
   );
 };
+
+
+export default Home;
