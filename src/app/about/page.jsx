@@ -18,7 +18,7 @@ const handleSubmit = async (event) => {
 const AboutPage = () => {
     return (
         <div>
-            <h1>Hello</h1>
+            <h1>Here is the about page</h1>
             <form onSubmit={handleSubmit}>
                 <button type="submit">Click me</button>
             </form>
