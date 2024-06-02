@@ -6,7 +6,7 @@ const Navbar = ()=>{
 
     return (
         <div className={styles.container}>
-            <Link href="/" className={styles.logo}>Rolls</Link>
+            <Link href="/" className={styles.logo}>Anime Rolls</Link>
             <Links/>
         </div>
     )

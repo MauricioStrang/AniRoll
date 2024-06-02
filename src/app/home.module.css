@@ -30,23 +30,6 @@
     font-size: 20px;
 }
 
-.buttons{
-    display: flex;
-    gap:20px
-}
-
-.button{
-    padding: 20px;
-    min-width:120px;
-    cursor:pointer ;
-    border:none;
-    border-radius: 5px;
-}
-
-.button:first-child{
-    background-color: var(--btn);
-    color: var(--text);
-}
 
 @media (max-width: 768px) {
     .container{
@@ -59,11 +42,7 @@
     .container{
         flex-direction:column;
         text-align: center;
-    }
-    .buttons{
-        justify-content: center;
-    }
-    
+    }  
 }
 
 @media (max-width: 768px) {
