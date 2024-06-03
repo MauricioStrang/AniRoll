@@ -1,4 +1,33 @@
-.h1{
-    font-size: 76;
-    color: white;
+.container{
+    display: flex;
+    gap: 100px;
+}
+
+.textContainer{
+    display: flex; 
+    flex: 1;
+    gap: 50px;
+    flex-direction: column;  
+}
+
+.subtitle{
+    color: var(--btn)
+}
+
+.title{
+    font-size: 54px;
+}
+
+.desc{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+
+
+@media (max-width: 768px) {
+    .container{
+        flex-direction:column;
+        text-align: center;
+    } 
 }

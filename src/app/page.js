@@ -12,7 +12,7 @@ const Home= () => {
           Anime Rolls Wheel
         </h1>
         <p className={styles.desc}>
-          The official Anime Rolls site by mauriex and KanadeT33 dasdasdasdad ads asdasdasdsada asdasddad asd asdasdasdasdasd
+          The official Anime Rolls site by mauriex and KanadeT33
         </p>
         <div className={styles.brands}>
           <Image src="/brands.png" alt="brands img" fill className={styles.brandsImg}/>
