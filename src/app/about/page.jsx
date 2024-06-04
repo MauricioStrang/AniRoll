@@ -1,6 +1,4 @@
 import styles from "./about.module.css";
-import Link from "next/link";
-
 
 const AboutPage = () => {
     return (
@@ -36,9 +34,7 @@ const AboutPage = () => {
                     to make it a project for ourselves and whoever that may find this useful too.
                 </p>
 
-            
             </div>
-
         </div>
     );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+// We need to create this navLink subcomponent because it uses a client hook, links.jsx is going to use server components
+
 import Link from "next/link";
 import styles from "./navlink.module.css"
 import { usePathname } from "next/navigation";
@@ -7,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 const NavLink = ({item}) =>{
 
-    const pathName = usePathname(); // usePathname is a CLIENT Component hook that lets you read the current URL's pathname.
+    const pathName = usePathname(); // usePathname is a CLIENT Component hook that lets you read and use the current URL's pathname.
 
     return (
         <div className={styles.container}>
