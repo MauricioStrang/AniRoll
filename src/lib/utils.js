@@ -1,19 +1,15 @@
 import mongoose from "mongoose";
 
-const connection = {};
+const connection = {};  //since we are using dev mode, we don't want to create a new connection every refresh, so we create this empty object
 
 export const connectToDb = async ()=>{
-
     console.log(connection);
     try {
         if(connection.isConnected){
             console.log("Using existing connection"); 
             return;
         }
-        if (!process.env.MONGO) {
-            throw new Error("MONGO environment variable is not defined");
-        }
-        
+        // if there is no connection, create one and save the state on the object
         const db = await mongoose.connect(process.env.MONGO);
         connection.isConnected = db.connections[0].readyState;
       } catch (error) {
