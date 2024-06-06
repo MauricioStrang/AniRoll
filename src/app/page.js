@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import styles from "./home.module.css"
+import { connectToDb } from "@/lib/utils";
 
 
 const Home= () => {
@@ -22,7 +23,6 @@ const Home= () => {
       <div className={styles.imgContainer}>
         <Image src="/homeWheel.png" alt="Wheel image" height={600} width={600} className={styles.wheelImg}/>
       </div>
-
     </div>
   );
 };
