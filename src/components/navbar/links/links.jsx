@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname } from "next/navigation";
 import styles from "./links.module.css"
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
@@ -27,6 +28,8 @@ const links =[
 
 
 const Links =()=>{
+
+    const pathName = usePathname();
 
     const [open, setOpen] = useState(false)
 

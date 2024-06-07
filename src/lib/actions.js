@@ -1,8 +1,13 @@
-'user server'
+'use server'
 import { User } from "./models";
-import { connectToDb } from "./utils";
-import { signIn, signOut } from "./auth"; //both need work
+import { connectToDb } from "./utils"
+import { signIn, signOut } from "./auth";
 import bcrypt from 'bcryptjs'
+
+
+export const handleLogout = async () =>{
+    await signOut();
+}
 
 
 //function to handle registers and returns states for registerForm
@@ -47,7 +52,8 @@ export const login = async(previousState, formData) =>{
     const {username, password} = Object.fromEntries(formData);
 
     try {
-        await signIn('credentials', {username, password})
+        await signIn('credentials', {username, password}) // signIn is a authJs function that need credentials as parameter. For paramaters
+                                                          // we pass an object with the username and password from the loginForm
        
     } catch (err) {
         console.log(err, 'could not log in user');
