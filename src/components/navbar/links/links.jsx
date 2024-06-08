@@ -1,11 +1,10 @@
 "use client"
 
-import { usePathname } from "next/navigation";
 import styles from "./links.module.css"
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
 import { useState } from "react";
-
+import { handleLogout } from "@/lib/actions";
 
 const links =[
     {
@@ -27,16 +26,10 @@ const links =[
 ];
 
 
-const Links =()=>{
+const Links =({session})=>{       
 
-    const pathName = usePathname();
 
     const [open, setOpen] = useState(false)
-
-
-    const session = {   // Temporary for example
-        user : false
-    }
 
     return(
         <div className={styles.container}>
@@ -50,7 +43,10 @@ const Links =()=>{
                 )))}{
                     session?.user ? (
                     <>
-                        <NavLink item = {{title: 'profile', path: '/profile'}} />       
+                        <NavLink item = {{title: 'profile', path: '/profile'}} />    
+                        <form action={handleLogout}>
+                        <button className={styles.logout}>Logout</button>    
+                        </form>   
                     </>
                     ) : (
                         <NavLink item = {{title: 'login', path: '/login'}} />  
@@ -73,6 +69,9 @@ const Links =()=>{
                 session?.user ? (
                 <>
                     <NavLink item = {{title: 'profile', path: '/profile'}} />     
+                    <form action={handleLogout}>
+                        <button className={styles.logout}>Logout</button>    
+                    </form>
                 </>
                 ) : (
                     <NavLink item = {{title: 'login', path: '/login'}} />              

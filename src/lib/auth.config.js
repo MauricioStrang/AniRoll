@@ -1,12 +1,12 @@
 export const authConfig = {
     pages:{
-        signIn: '/login',
+        signIn: '/login',   // this is the default redirect when we return false to the config
     },
     providers: [],
     callbacks: {
-        async jwt({token, user}){
-            if(user){
-                token.id = user.id;
+        async jwt({token, user}){  
+            if(user){                             
+                token.id = user.id;                
                 token.isAdmin = user.isAdmin;
             }
             return token;
@@ -14,7 +14,6 @@ export const authConfig = {
         async session({session, token}){
             if(token){
                 session.user.id = token.id;
-                session.user.isAdmin = token.isAdmin;
             }
             return session;
         },
@@ -23,12 +22,14 @@ export const authConfig = {
             const user = auth?.user;
             const isOnUsersPanel = request.nextUrl?.pathname.startsWith("/users")
             const isOnLoginPanel = request.nextUrl?.pathname.startsWith("/login")
+            const isOnRollPanel = request.nextUrl?.pathname.startsWith("/roll")
+            const isOnRegisterPanel = request.nextUrl?.pathname.startsWith("/register")
 
-        
-            if(isOnUsersPanel && !user){
+            if((isOnUsersPanel || isOnRollPanel) && !user){
                 return false;
             }
-            if(isOnLoginPanel && user){
+
+            if((isOnLoginPanel || isOnRegisterPanel) && user){
                 return Response.redirect(new URL("/", request.nextUrl));
             }
             

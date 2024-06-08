@@ -40,7 +40,7 @@ export const { handlers:{GET, POST}, auth, signIn, signOut} = NextAuth({    //au
         async authorize(credentials){
             try {
                 const user = await login (credentials);
-                return user
+                return user                               
             } catch (err) {
                 console.log('null, you fool')
                 return null
