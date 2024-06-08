@@ -56,7 +56,6 @@ export const login = async(previousState, formData) =>{
                                                           // we pass an object with the username and password from the loginForm
        
     } catch (err) {
-        console.log(err, 'could not log in user');
         if(err.message.includes("CredentialsSignin")){       //isolating the error if the user enters wrong data
             return {error: "Invalid username or password"}
         }

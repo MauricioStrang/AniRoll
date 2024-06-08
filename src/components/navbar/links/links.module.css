@@ -28,6 +28,7 @@ will open a vertical menu with the tabs */
         
     }
     .mobileLinks{
+    z-index: 2;
     position: absolute;
     top: 100px;
     right: 0;

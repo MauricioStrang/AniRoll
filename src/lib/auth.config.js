@@ -3,21 +3,21 @@ export const authConfig = {
         signIn: '/login',   // this is the default redirect when we return false to the config
     },
     providers: [],
-    callbacks: {
-        async jwt({token, user}){  
-            if(user){                             
+    callbacks: {                         // when logging in with user credentials auth only includes the email
+        async jwt({token, user}){        // when logged in next auth returns a jwt token
+            if(user){                    // using the user information we can update the token         
                 token.id = user.id;                
-                token.isAdmin = user.isAdmin;
             }
             return token;
         },
         async session({session, token}){
-            if(token){
-                session.user.id = token.id;
-            }
-            return session;
+            if(token){  
+                session.user.id = token.id;     //so we update our session with the new token        
+            }                                   //we only updated the userId (no username), not interested in showing the password
+            return session;                        
         },
-        authorized({auth, request}){
+        authorized({auth, request}){     // this is the configuration function with the appropiate conditions
+                                         // we use the updated auth that uses the updated session
             
             const user = auth?.user;
             const isOnUsersPanel = request.nextUrl?.pathname.startsWith("/users")
@@ -25,6 +25,7 @@ export const authConfig = {
             const isOnRollPanel = request.nextUrl?.pathname.startsWith("/roll")
             const isOnRegisterPanel = request.nextUrl?.pathname.startsWith("/register")
 
+            //returning false means that you can't go to that Panel
             if((isOnUsersPanel || isOnRollPanel) && !user){
                 return false;
             }
@@ -33,7 +34,7 @@ export const authConfig = {
                 return Response.redirect(new URL("/", request.nextUrl));
             }
             
-            return true;
+            return true;  // the user is logged in and can enter every other panel
         },
     },
 };
