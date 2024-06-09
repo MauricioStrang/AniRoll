@@ -5,6 +5,7 @@ import NavLink from "./navLink/navLink";
 import Image from "next/image";
 import { useState } from "react";
 import { handleLogout } from "@/lib/actions";
+import Link from "next/link";
 
 const links =[
     {
@@ -29,7 +30,9 @@ const links =[
 const Links =({session})=>{       
 
 
-    const [open, setOpen] = useState(false)
+    const [openBrg, setOpenBrg] = useState(false)
+    const [openAvatar, setOpenAvatar] = useState(false)
+
 
     return(
         <div className={styles.container}>
@@ -43,10 +46,23 @@ const Links =({session})=>{
                 )))}{
                     session?.user ? (
                     <>
-                        <NavLink item = {{title: 'profile', path: '/profile'}} />    
+                        <Image
+                        className={styles.avatarBtn}
+                        src='/noavatar.png' 
+                        alt="profile-picture" 
+                        height={50} 
+                        width={50} 
+                        onClick = {()=> setOpenAvatar((prev)=> !prev)}
+                        />
+                        {openAvatar && <div className={styles.avatarLinks}>
+
+                        <NavLink item = {{title: 'profile', path: '/profile'}} />
+                        
                         <form action={handleLogout}>
                         <button className={styles.logout}>Logout</button>    
                         </form>   
+                        
+                        </div>}                      
                     </>
                     ) : (
                         <NavLink item = {{title: 'login', path: '/login'}} />  
@@ -60,15 +76,24 @@ const Links =({session})=>{
             alt='menu button' 
             width={30} 
             height={30} 
-            onClick = {()=> setOpen((prev) => !prev)}/>       
-            {open && <div className={styles.mobileLinks}>  {/* setOpen function is called with a function as an argument. This function
+            onClick = {()=> setOpenBrg((prev) => !prev)}
+            />       
+            {openBrg && <div className={styles.mobileLinks}>  {/* setOpen function is called with a function as an argument. This function
                                                             receives the previous state value (prev) and returns the new state value. */}
             {links.map((link)=>(
             <NavLink item = {link} key={link.title}/>
             ))}{
                 session?.user ? (
                 <>
-                    <NavLink item = {{title: 'profile', path: '/profile'}} />     
+            
+                    <Image
+                    className={styles.avatarBtn}
+                    src='/noavatar.png' 
+                    alt="profile-picture" 
+                    height={50} 
+                    width={50}            
+                    />
+                         
                     <form action={handleLogout}>
                         <button className={styles.logout}>Logout</button>    
                     </form>

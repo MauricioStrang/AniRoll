@@ -10,22 +10,56 @@
     font-weight: bold;
 }
 
+.avatarBtn{
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.avatarLinks{
+    min-width: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    text-align: center;
+
+    
+    position: absolute;
+    z-index: 2;
+    top: 100px;
+    right: 9vw;
+    width: 10%;
+    height: 150px;
+    background-color: rgba(0,8,51,0.95);
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
 
 /* after certain display-size, the navbar will dissapear and a button for smaller devices 
 will open a vertical menu with the tabs */
 
 .mobileLinks, .menuButton{
     display: none;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
     .links{
         display: none;
     }
+    .avatarLinks{
+        display: none;
+    }
     .menuButton{
         display: block;
         cursor: pointer;
-        
+      
     }
     .mobileLinks{
     z-index: 2;

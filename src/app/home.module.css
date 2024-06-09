@@ -11,8 +11,6 @@
 }
 
 .brands{
-    width: 500px;
-    height: 50px;
     position: relative;
     filter: grayscale(1);
 }

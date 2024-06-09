@@ -14,7 +14,7 @@ const Home= () => {
           The official Anime Rolls site by mauriex and KanadeT33
         </p>
         <div className={styles.brands}>
-          <Image src="/brands.png" alt="brands img" fill className={styles.brandsImg}/>
+          <Image src="/brands.png" alt="brands img" width={500} height={50} className={styles.brandsImg}/>
         </div>
 
       </div>
