@@ -1,5 +1,10 @@
 import styles from "./about.module.css";
 
+export const metadata = {
+    title: "About - AniRoll",
+    description: "About page",
+  };
+
 const AboutPage = () => {
     return (
         <div className={styles.container}>

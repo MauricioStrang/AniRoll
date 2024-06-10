@@ -33,6 +33,23 @@ const Links =({session})=>{
     const [openBrg, setOpenBrg] = useState(false)
     const [openAvatar, setOpenAvatar] = useState(false)
 
+    const closeAvatar = () => {
+        setOpenAvatar(false);        //closes the avatar menu
+    };
+
+    const handleLogoutConfirm = async () => {
+        const confirmed = window.confirm("Are you sure you want to logout?");
+        if (confirmed) {
+            await handleLogout();                    //window is a user component so I need to call it here instead of actions.js
+        }
+    };
+
+
+    const logOut = (event) => {
+        event.preventDefault();
+        handleLogoutConfirm();     //I need the logout button to do two actions so I need to create a new function.
+        closeAvatar();
+    };
 
     return(
         <div className={styles.container}>
@@ -56,16 +73,16 @@ const Links =({session})=>{
                         />
                         {openAvatar && <div className={styles.avatarLinks}>
 
-                        <NavLink item = {{title: 'profile', path: '/profile'}} />
+                            <NavLink item = {{title: 'profile', path: '/userProfile'}} onClick={closeAvatar}  />
                         
-                        <form action={handleLogout}>
-                        <button className={styles.logout}>Logout</button>    
-                        </form>   
+                            <form onSubmit={logOut}>
+                                <button className={styles.logout}>Logout</button>    
+                             </form>
                         
                         </div>}                      
                     </>
                     ) : (
-                        <NavLink item = {{title: 'login', path: '/login'}} />  
+                        <NavLink item = {{title: 'login', path: '/login'}}/>  
                         // This is an If statement that checks if there is an user session currently, if there is, show a profile tab
                         // else add a login tab that redirects to the login form.             
                 )} 
@@ -85,16 +102,19 @@ const Links =({session})=>{
             ))}{
                 session?.user ? (
                 <>
-            
+                    <Link href='./userProfile'>
                     <Image
                     className={styles.avatarBtn}
                     src='/noavatar.png' 
                     alt="profile-picture" 
                     height={50} 
-                    width={50}            
+                    width={50} 
+                               
                     />
+                    </Link>
+                    
                          
-                    <form action={handleLogout}>
+                    <form action={logOut}>
                         <button className={styles.logout}>Logout</button>    
                     </form>
                 </>

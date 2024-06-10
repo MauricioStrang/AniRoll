@@ -5,9 +5,9 @@ import { signIn, signOut } from "./auth";
 import bcrypt from 'bcryptjs'
 
 
-export const handleLogout = async () =>{
+export const handleLogout = async () => {
     await signOut();
-}
+};
 
 
 //function to handle registers and returns states for registerForm
