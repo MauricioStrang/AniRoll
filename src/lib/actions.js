@@ -1,5 +1,5 @@
 'use server'
-import { User } from "./models";
+import { User, Profile } from "./models";
 import { connectToDb } from "./utils"
 import { signIn, signOut } from "./auth";
 import bcrypt from 'bcryptjs'
@@ -10,40 +10,49 @@ export const handleLogout = async () => {
 };
 
 
-//function to handle registers and returns states for registerForm
-export const register = async(previousState,formData) =>{
-    const {username, email, password, passwordRepeat} = Object.fromEntries(formData);
+export const register = async (previousState, formData) => {
+    const { username, email, password, passwordRepeat } = Object.fromEntries(formData);
 
-    if (password !== passwordRepeat){
-        return {error:'Password does not match!'}
+    if (password !== passwordRepeat) {
+        return { error: 'Password does not match!' };
     }
 
     try {
         connectToDb();
 
-        const user = await User.findOne({username})
+        const existingUser = await User.findOne({ username });
 
-        if(user){
-            return {error: "Username already exists!"}
+        if (existingUser) {
+            return { error: "Username already exists!" };
         }
-        
-        const salt = await bcrypt.genSalt(10);                      //idk basically hashes the password
-        const hashedPassword = await bcrypt.hash(password, salt )   
 
-        const newUser = new User({         //creates new User in the db with the User schema from models.js
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const newUser = new User({
             username,
             email,
             password: hashedPassword,
         });
 
-        await newUser.save();
-        console.log('saved new user to db')
-        return {success: true}
+        const savedUser = await newUser.save();
+        console.log('saved new user to db');
+
+        // Create profile using the new user's ID
+        const newProfile = new Profile({
+            desc: 'change your description',
+            pfp: '',
+            slug: username,
+            userId: savedUser._id,
+        });
+        await newProfile.save();
+
+        return { success: true };
     } catch (err) {
         console.log(err, 'could not save new user to db');
-        return {error: 'Something went wrong'}
+        return { error: 'Something went wrong' };
     }
-}
+};
 
 
 

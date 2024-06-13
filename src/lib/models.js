@@ -21,13 +21,34 @@ const userSchema = new mongoose.Schema(
             type: String,
         
         },
-        img: {
-            type: String,
-        },
     },
     {timestamps: true}
 );
 
+const profileSchema = new mongoose.Schema(
+    {
+        desc: {
+            type: String,
+            min: 3,
+            max: 50,
+        },
+        pfp: {
+            type: String,
+        },
+        userId: {
+            type: String,
+            required: true, 
+        },
+        slug:{
+            type: String,
+            unique: true,
+            required: true,
+        }
+    },
+    {timestamps: true}
+)
+
 export const User = mongoose.models?.User || mongoose.model('User', userSchema);
+export const Profile = mongoose.models?.Profile || mongoose.model('Profile', profileSchema);
 //This line ensures that User is assigned to the User model. If the model already exists in mongoose.models,
 // it uses that existing model. If it doesn't exist, it creates a new one using the schema.

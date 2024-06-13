@@ -16,6 +16,7 @@ export const authConfig = {
             }                                   //we only updated the userId (no username), not interested in showing the password
             return session;                        
         },
+
         authorized({auth, request}){     // this is the configuration function with the appropiate conditions
                                          // we use the updated auth that uses the updated session
             
