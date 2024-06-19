@@ -1,34 +1,40 @@
 import { getProfile } from "@/lib/data";
 import styles from "./userProfile.module.css";
 import Image from "next/image";
+import { connectToDb } from "@/lib/utils";
 
 export const metadata = {
     title: " - AniRoll",           // username
     description: " page",
   };
 
+
+
+
+
 const userProfile = async({params}) => {
 
-    const {slug} = params;
+    await connectToDb();
 
-    const profile = await getProfile(slug)
+    const profile = await getProfile(params.slug);
+
+    
 
     return (
         <div className={styles.container}>
+            <h1>{profile.user.username}'s Profile</h1>
                 {profile.pfp && (<div className={styles.pfpContainer}>
                 <Image 
                 src={profile.pfp}
-                alt="profile picture" 
+                alt={`${profile.user.username}'s profile picture`}
                 fill 
                 className={styles.pfp}/>
                 </div>)}
-                <div className={styles.textContainer}>
-                    <h1 className={styles.title}>{profile.slug}</h1>
+      
                 <div className={styles.detail}>
                     <div className={styles.detailText}>
                         <span className={styles.detailTitle}>Published</span>
                         <span className={styles.detailValue}>{profile.createdAt.toString().slice(4, 16)}</span>
-                    </div>
                 </div>
                 <div className={styles.content}>
                     {profile.desc}
@@ -37,5 +43,5 @@ const userProfile = async({params}) => {
         </div>
     )
 }
-
+export const dynamicParams = true;
 export default userProfile;

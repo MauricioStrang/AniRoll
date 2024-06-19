@@ -73,7 +73,7 @@ const Links =({session})=>{
                         />
                         {openAvatar && <div className={styles.avatarLinks}>
 
-                            <NavLink item = {{title: 'profile', path: '/userProfile'}} onClick={closeAvatar}  />
+                            <NavLink item = {{title: 'profile', path: `/profiles/${session.user.username}`}} onClick={closeAvatar}  />
                         
                             <form onSubmit={logOut}>
                                 <button className={styles.logout}>Logout</button>    

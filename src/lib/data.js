@@ -31,8 +31,8 @@ export const getUser = async (id) =>{
 
 export const getProfile = async (slug) =>{
     try {
-        connectToDb();
-        const profile = await Profile.findOne({slug});
+        await connectToDb();
+        const profile = await Profile.findOne({ slug }).populate('userId');
         return profile;
     } catch (err) {
         console.log(err);
