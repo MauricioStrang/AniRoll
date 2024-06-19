@@ -1,4 +1,4 @@
-import { User } from "./models";
+import { Profile, User } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -25,5 +25,17 @@ export const getUser = async (id) =>{
     } catch (err) {
         console.log(err);
         throw new Error('failed to fetch user!')
+    }
+}
+
+
+export const getProfile = async (slug) =>{
+    try {
+        connectToDb();
+        const profile = await Profile.findOne({slug});
+        return profile;
+    } catch (err) {
+        console.log(err);
+        throw new Error('failed to fetch profile!')
     }
 }
