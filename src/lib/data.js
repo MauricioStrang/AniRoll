@@ -29,13 +29,28 @@ export const getUser = async (id) =>{
 }
 
 
+
+export const getProfiles = async () =>{
+    try {
+        await connectToDb();
+        const profiles = await Profile.find();
+        return profiles;
+    } catch (err) {
+        console.log(err);
+        throw new Error('failed to fetch profiles!')
+    }
+}
+
+
+
 export const getProfile = async (slug) =>{
     try {
         await connectToDb();
-        const profile = await Profile.findOne({ slug }).populate('userId');
+        const profile = await Profile.findOne({ slug });
         return profile;
     } catch (err) {
         console.log(err);
         throw new Error('failed to fetch profile!')
     }
 }
+
