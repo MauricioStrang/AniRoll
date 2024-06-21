@@ -18,7 +18,7 @@ const links =[
     },
     {
         title: "Users",
-        path: "/users"
+        path: "/profiles"
     },
     {
         title: "Roll",

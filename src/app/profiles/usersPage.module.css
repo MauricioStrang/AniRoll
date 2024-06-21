@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;  
+}
+
+.profile{
+    width: 30%
+}
+
+@media screen and (max-width: 1280px){
+    .profile{
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .profile{
+        width: 100%;
+    }
+};
+    
