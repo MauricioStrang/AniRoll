@@ -3,13 +3,13 @@
     gap: 100px;
 }
 
-.pfpContainer{
+.imgContainer{
 flex:1;
 position: relative;
 height: calc(100vh - 200px);
 }
 
-.pfp{
+.img{
 object-fit: cover;
 }
 

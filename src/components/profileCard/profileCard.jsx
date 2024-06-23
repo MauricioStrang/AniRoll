@@ -18,7 +18,7 @@ const ProfileCard = ({profile}) =>{            //receives a profile as a param
             <div className={styles.bottom}>
                 <h1 className={styles.title}>{profile.slug}</h1>
                 <p className={styles.desc}>{profile.desc}</p>
-                <Link href={`/users/${profile.slug}`} className={styles.link}>See Profile</Link>
+                <Link href={`/profiles/${profile.slug}`} className={styles.link}>See Profile</Link>
             </div>
         </div>
         

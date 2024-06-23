@@ -3,7 +3,7 @@
 import styles from "./links.module.css"
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { handleLogout } from "@/lib/actions";
 import Link from "next/link";
 
@@ -27,11 +27,15 @@ const links =[
 ];
 
 
-const Links =({session})=>{       
-
+const Links = ({session})=>{      
 
     const [openBrg, setOpenBrg] = useState(false)
     const [openAvatar, setOpenAvatar] = useState(false)
+
+
+    useEffect(() => {
+        console.log("Session object:", session); // Log the session object for debugging
+    }, [session]);
 
     const closeAvatar = () => {
         setOpenAvatar(false);        //closes the avatar menu
@@ -50,6 +54,9 @@ const Links =({session})=>{
         handleLogoutConfirm();     //I need the logout button to do two actions so I need to create a new function.
         closeAvatar();
     };
+
+
+    const username = session?.user?.username;
 
     return(
         <div className={styles.container}>
@@ -73,7 +80,7 @@ const Links =({session})=>{
                         />
                         {openAvatar && <div className={styles.avatarLinks}>
 
-                            <NavLink item = {{title: 'profile', path: `/profiles/${session.user.username}`}} onClick={closeAvatar}  />
+                            <NavLink item = {{title: 'profile', path: `/profiles/${username}`}} onClick={closeAvatar}  />
                         
                             <form onSubmit={logOut}>
                                 <button className={styles.logout}>Logout</button>    
