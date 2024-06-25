@@ -21,7 +21,8 @@ const usersPage = async() => {
                 </div>
             ))}
         </div>
-
+            //We map the profiles from the db and create a 'profile card' for each one of them, and for each,
+            //  we pass a profile to show the data
         
     )
 }  

@@ -12,7 +12,7 @@ const ProfileCard = ({profile}) =>{            //receives a profile as a param
         <div className={styles.container}>
             <div className={styles.top}>
                 {profile.pfp && <div className={styles.imgContainer}>
-                    <Image src={profile.pfp} alt="profile picture" fill className={styles.img}/>
+                    <Image src={profile.pfp} alt="profile picture" fill className={styles.img}/> 
                 </div>}
             </div>
             <div className={styles.bottom}>

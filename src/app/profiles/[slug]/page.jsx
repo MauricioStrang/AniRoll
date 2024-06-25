@@ -1,3 +1,5 @@
+//this is the body for each of the users private profiles
+
 import { getProfile } from "@/lib/data";
 import styles from "./userProfile.module.css";
 import Image from "next/image";
@@ -8,9 +10,10 @@ export const metadata = {
   };
 
 
-const userProfile = async({params}) => {
+const userProfile = async({params}) => {    //de-estructing params gets a slug of whatever it comes after profiles
 
-    const {slug} = params;
+
+    const {slug} = params;                     // getting the slug from params
     const profile = await getProfile(slug);
 
     return (
@@ -26,8 +29,8 @@ const userProfile = async({params}) => {
                 <h1 className={styles.title}>{profile.slug}</h1>
                 <div className={styles.detail}>
                     <div className={styles.detailText}>
-                        <span className={styles.detailTitle}>Published</span>
-                        <span className={styles.detailValue}>{profile.createdAt.toString().slice(4, 16)}</span>
+                        <span className={styles.detailTitle}>Created</span>
+                        <span className={styles.detailValue}>{profile.createdAt.toString().slice(4, 16)}</span>   {/* slice to just show month, day and year */}               
                     </div>
                 </div>
                 <div className={styles.content}>

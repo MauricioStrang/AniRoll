@@ -1,1 +1,3 @@
-export {GET, POST} from '../../../../lib/auth'
+  // Contains all necessary configuration for NextAuth.js.
+
+export {GET, POST} from '@/lib/auth'         
