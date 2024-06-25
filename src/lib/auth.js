@@ -36,7 +36,7 @@ const login = async(credentials) =>{
 
 export const { handlers:{GET, POST}, auth, signIn, signOut} = NextAuth({    //auth is the user session
     ...authConfig, providers: [ CredentialsProvider({                      //in the future will se if myAnimelist has a provider
-        async authorize(credentials){
+        async authorize(credentials){                                      //we use our own credentialsProviders for now
             try {
                 const user = await login (credentials);
                 return user                               

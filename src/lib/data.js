@@ -1,3 +1,5 @@
+// db functions to get data
+
 import { Profile, User } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
@@ -16,15 +18,14 @@ export const getUsers = async () =>{
 }
 
 export const getUser = async (id) =>{
-    noStore()
+    noStore()                                    //noStore tells that this components should not be cached, In case of changes in the profile we can see them on refresh
     try {
         connectToDb();
         const user = await User.findById(id);
-        console.log(user)
         return user;
     } catch (err) {
         console.log(err);
-        throw new Error('failed to fetch user!')
+        throw new Error('failed to fetch the user!')
     }
 }
 
@@ -50,7 +51,7 @@ export const getProfile = async (slug) =>{
         return profile;
     } catch (err) {
         console.log(err);
-        throw new Error('failed to fetch profile!')
+        throw new Error('failed to fetch the profile!')
     }
 }
 

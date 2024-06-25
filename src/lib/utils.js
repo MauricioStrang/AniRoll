@@ -1,9 +1,10 @@
+//basically db connection
+
 import mongoose from "mongoose";
 
 const connection = {};  //since we are using dev mode, we don't want to create a new connection every refresh, so we create this empty object
 
 export const connectToDb = async ()=>{
-    console.log(connection);
     try {
         if(connection.isConnected){
             console.log("Using existing connection"); 

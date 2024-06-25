@@ -1,3 +1,4 @@
+//We need authConfig to use the middleware
 export const authConfig = {
     pages:{
         signIn: '/login',   // this is the default redirect when we return false to the config
@@ -6,7 +7,7 @@ export const authConfig = {
     callbacks: {                         // when logging in with user credentials auth only includes the email
         async jwt({token, user}){        // when logged in next auth returns a jwt token
             if(user){
-                token.username = user.username                    // using the user information we can update the token         
+                token.username = user.username                    // using the user information we can update the token       
                 token.id = user.id;                
             }
             return token;
@@ -15,7 +16,7 @@ export const authConfig = {
             if(token){ 
                 session.user.username = token.username; 
                 session.user.id = token.id;     //so we update our session with the new token        
-            }                                   //we only updated the userId (no username), not interested in showing the password
+            }                                   //we only updated the userId and username, not interested in showing the password
             return session;                        
         },
 

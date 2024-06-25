@@ -6,6 +6,7 @@
     text-align: center;
 }
 
+
 .active{
     background-color: var(--text);
     color: var(--bg);

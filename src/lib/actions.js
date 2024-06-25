@@ -11,7 +11,7 @@ export const handleLogout = async () => {
 
 
 export const register = async (previousState, formData) => {
-    const { username, email, password, passwordRepeat } = Object.fromEntries(formData);
+    const { username, email, password, passwordRepeat } = Object.fromEntries(formData); //data from the registerForm
 
     if (password !== passwordRepeat) {
         return { error: 'Password does not match!' };
@@ -27,18 +27,18 @@ export const register = async (previousState, formData) => {
         }
 
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);  //hashing password idk
 
         const newUser = new User({
             username,
-            email,
+            email,                                      //creating new User on the db
             password: hashedPassword,
         });
 
         const savedUser = await newUser.save();
         console.log('saved new user to db');
 
-        // Create profile using the new user's ID
+        // At the samte time creating an user profile using the new user's ID
         const newProfile = new Profile({
             desc: 'change your description',
             pfp: '',
@@ -47,7 +47,7 @@ export const register = async (previousState, formData) => {
         });
         await newProfile.save();
 
-        return { success: true };
+        return { success: true };  //dependencie to redirect to loginform after
     } catch (err) {
         console.log(err, 'could not save new user to db');
         return { error: 'Something went wrong' };

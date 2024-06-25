@@ -5,7 +5,7 @@ import styles from "./navlink.module.css"
 import { usePathname } from "next/navigation";
 
 
-const NavLink = ({item, onClick}) =>{
+const NavLink = ({item}) =>{
 
 
 
@@ -13,8 +13,8 @@ const NavLink = ({item, onClick}) =>{
     
     return (
         <div className={styles.container}>
-            <Link href= {item.path} onClick ={onClick} className={`${styles.container} ${
-                pathName === item.path && styles.active
+            <Link href= {item.path} className={`${styles.container} ${
+                pathName === item.path && styles.active     //active meaning that you are on the path you clicked and show the styles that border the text
             }`}>
                 {item.title}
              </Link>

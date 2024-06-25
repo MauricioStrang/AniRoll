@@ -3,9 +3,12 @@
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { handleLogout } from "@/lib/actions";
 import Link from "next/link";
+
+
+
 
 const links = [
   {
@@ -26,10 +29,13 @@ const links = [
   }
 ];
 
+
+
 const Links = ({ session }) => {
-  const avatarRef = useRef(null); // Reference to the avatar icon
-  const [openBrg, setOpenBrg] = useState(false);
-  const [openAvatar, setOpenAvatar] = useState(false);
+
+
+  const [openBrg, setOpenBrg] = useState(false);        //useState for burger menu button
+  const [openAvatar, setOpenAvatar] = useState(false);  //useState for profile picture menu button
 
   const closeAvatar = () => {
     setOpenAvatar(false); // Closes the avatar menu
@@ -42,13 +48,16 @@ const Links = ({ session }) => {
     }
   };
 
+
+  // I need the logout button to do two actions so I need to create a new function.
   const logOut = (event) => {
     event.preventDefault();
-    handleLogoutConfirm(); // I need the logout button to do two actions so I need to create a new function.
+    handleLogoutConfirm(); 
     closeAvatar();
   };
 
-  const username = session?.user?.username;
+  const username = session?.user?.username;  //getting the username to use on the profile button
+
 
   return (
     <div className={styles.container}>
@@ -60,7 +69,7 @@ const Links = ({ session }) => {
         ))}
         {session?.user ? (
           <>
-            <div className={styles.avatarContainer}>
+            <div className={styles.avatarContainer}>  {/*created avatarContainer so I can adjust the avatar menu to the navbar */}
               <Image
                 className={styles.avatarBtn}
                 src="/noavatar.png"
@@ -68,7 +77,6 @@ const Links = ({ session }) => {
                 height={50}
                 width={50}
                 onClick={() => setOpenAvatar((prev) => !prev)}
-                ref={avatarRef}
               />
               {openAvatar && (
                 <div className={styles.avatarLinks}>
@@ -99,7 +107,7 @@ const Links = ({ session }) => {
       />
       {openBrg && (
         <div className={styles.mobileLinks}>
-          {/* SetOpen function is called with a function as an argument. This function
+          {/* SetOpenBrg function is called with a function as an argument. This function
           receives the previous state value (prev) and returns the new state value. */}
           {links.map((link) => (
             <NavLink item={link} key={link.title} />

@@ -11,7 +11,7 @@
   }
   
   .avatarContainer {
-    position: relative; /* Make this container relative */
+    position: relative; 
   }
   
   .avatarBtn {
@@ -21,8 +21,8 @@
   }
   
   .avatarLinks {
-    position: absolute; /* Position it absolutely within the container */
-    right: 0; /* Align it to the right edge of the container */
+    position: absolute; 
+    right: 0; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +34,7 @@
     font-weight: 500;
     text-align: center;
     z-index: 2;
-    top: 60px; /* Adjust this value if needed to align below the avatar button */
+    top: 60px; 
     background-color: rgba(0, 8, 51, 0.95);
     gap: 10px;
   }
