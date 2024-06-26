@@ -4,10 +4,16 @@ import { getProfile } from "@/lib/data";
 import styles from "./userProfile.module.css";
 import Image from "next/image";
 
-export const metadata = {
-    title: " - AniRoll",           // username
-    description: " page",
-  };
+export const generateMetadata = async ({ params }) => {
+    const { slug } = params;
+
+    const profile = await getProfile(slug);
+
+    return {
+        title: `${profile.slug}'s profile`,
+        description: profile.desc,
+    };
+};
 
 
 const userProfile = async({params}) => {    //de-estructing params gets a slug of whatever it comes after profiles
