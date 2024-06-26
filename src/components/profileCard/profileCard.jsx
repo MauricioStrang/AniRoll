@@ -8,16 +8,15 @@ import Link from 'next/link';
 
 const ProfileCard = ({profile}) =>{            //receives a profile as a param
 
+    const profileImageSrc = profile.pfp ? profile.pfp : '/noavatar.png';  // if the user has no profile picture use default noavatar
+
     return(
         <div className={styles.container}>
-            <div className={styles.top}>
-                {profile.pfp && <div className={styles.imgContainer}>
-                    <Image src={profile.pfp} alt="profile picture" fill className={styles.img}/> 
-                </div>}
+            <div className={styles.imgContainer}>
+                <Image src={profileImageSrc} alt="Profile picture" fill className={styles.img}/>    
             </div>
-            <div className={styles.bottom}>
-                <h1 className={styles.title}>{profile.slug}</h1>
-                <p className={styles.desc}>{profile.desc}</p>
+            <div className={styles.infoContainer}>
+                <h1 className={styles.username}>{profile.slug}</h1>
                 <Link href={`/profiles/${profile.slug}`} className={styles.link}>See Profile</Link>
             </div>
         </div>
