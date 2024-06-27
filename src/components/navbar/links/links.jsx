@@ -31,8 +31,7 @@ const links = [
 
 
 
-const Links = ({ session }) => {
-
+const Links = async({ session }) => {
 
   const [openBrg, setOpenBrg] = useState(false);        //useState for burger menu button
   const [openAvatar, setOpenAvatar] = useState(false);  //useState for profile picture menu button
