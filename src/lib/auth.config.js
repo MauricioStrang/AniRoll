@@ -24,7 +24,7 @@ export const authConfig = {
                                          // we use the updated auth that uses the updated session
             
             const user = auth?.user;
-            const isOnUsersPanel = request.nextUrl?.pathname.startsWith("/users")
+            const isOnUsersPanel = request.nextUrl?.pathname.startsWith("/profiles")
             const isOnLoginPanel = request.nextUrl?.pathname.startsWith("/login")
             const isOnRollPanel = request.nextUrl?.pathname.startsWith("/roll")
             const isOnRegisterPanel = request.nextUrl?.pathname.startsWith("/register")

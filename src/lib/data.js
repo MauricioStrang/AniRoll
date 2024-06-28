@@ -55,3 +55,15 @@ export const getProfile = async (slug) =>{
     }
 }
 
+
+export const getProfileFromUsername = async (username) =>{
+    try {
+        await connectToDb();
+        const profile = await Profile.findOne({ slug });
+        return profile;
+    } catch (err) {
+        console.log(err);
+        throw new Error('failed to fetch the profile!')
+    }
+}
+

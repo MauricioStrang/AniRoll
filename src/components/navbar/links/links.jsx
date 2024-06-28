@@ -3,12 +3,10 @@
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { handleLogout } from "@/lib/actions";
 import Link from "next/link";
-
-
-
+import { getProfile } from "@/lib/data";
 
 const links = [
   {
@@ -29,49 +27,64 @@ const links = [
   }
 ];
 
+const Links = ({ session }) => {
+  
+  const username = session?.user?.username;
 
 
-const Links = async({ session }) => {
+  const [openBrg, setOpenBrg] = useState(false);
+  const [openAvatar, setOpenAvatar] = useState(false);
+  const [profile, setProfile] = useState(null);
 
-  const [openBrg, setOpenBrg] = useState(false);        //useState for burger menu button
-  const [openAvatar, setOpenAvatar] = useState(false);  //useState for profile picture menu button
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (username) {
+        try {
+          const response = await getProfile('anna');
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const profileData = await response.json();
+          setProfile(profileData);
+        } catch (error) {
+          console.error('Failed to fetch profile:', error);
+          setProfile({ pfp: '/default-avatar.png' }); // Fallback to default avatar
+        }
+      }
+    };
+
+    fetchProfile();
+  }, [username]);
 
   const closeAvatar = () => {
-    setOpenAvatar(false); // Closes the avatar menu
+    setOpenAvatar(false);
   };
 
   const handleLogoutConfirm = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
     if (confirmed) {
-      await handleLogout(); // Window is a user component so I need to call it here instead of actions.js
+      await handleLogout();
     }
   };
 
-
-  // I need the logout button to do two actions so I need to create a new function.
   const logOut = (event) => {
     event.preventDefault();
-    handleLogoutConfirm(); 
+    handleLogoutConfirm();
     closeAvatar();
   };
-
-  const username = session?.user?.username;  //getting the username to use on the profile button
-
 
   return (
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
           <NavLink item={link} key={link.title} />
-          /* We map through the links array to get each one of the objects and pass them to the NavLink
-          subcomponent as a param */
         ))}
         {session?.user ? (
           <>
-            <div className={styles.avatarContainer}>  {/*created avatarContainer so I can adjust the avatar menu to the navbar */}
+            <div className={styles.avatarContainer}>
               <Image
                 className={styles.avatarBtn}
-                src="/noavatar.png"
+                src={profile?.pfp}
                 alt="profile-picture"
                 height={50}
                 width={50}
@@ -92,8 +105,6 @@ const Links = async({ session }) => {
           </>
         ) : (
           <NavLink item={{ title: "login", path: "/login" }} />
-          // This is an If statement that checks if there is a user session currently, if there is, show a profile tab
-          // else add a login tab that redirects to the login form.
         )}
       </div>
       <Image
@@ -106,8 +117,6 @@ const Links = async({ session }) => {
       />
       {openBrg && (
         <div className={styles.mobileLinks}>
-          {/* SetOpenBrg function is called with a function as an argument. This function
-          receives the previous state value (prev) and returns the new state value. */}
           {links.map((link) => (
             <NavLink item={link} key={link.title} />
           ))}
@@ -116,7 +125,7 @@ const Links = async({ session }) => {
               <Link href="./userProfile">
                 <Image
                   className={styles.avatarBtn}
-                  src="/noavatar.png"
+                  src={profile?.pfp || "/default-avatar.png"}
                   alt="profile-picture"
                   height={50}
                   width={50}
