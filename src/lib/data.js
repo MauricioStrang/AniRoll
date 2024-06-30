@@ -43,15 +43,17 @@ export const getProfiles = async () =>{
 }
 
 
-
-export const getProfile = async (slug) =>{
+export const getProfile = async (slug) => {
     try {
         await connectToDb();
         const profile = await Profile.findOne({ slug });
+        if (!profile) {
+            throw new Error(`Profile with slug '${slug}' not found`);
+        }
         return profile;
     } catch (err) {
-        console.log(err);
-        throw new Error('failed to fetch the profile!')
+        console.error(`Error fetching profile for slug '${slug}':`, err);
+        throw new Error(`Failed to fetch the profile for slug '${slug}'`);
     }
 }
 

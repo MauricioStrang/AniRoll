@@ -3,7 +3,7 @@
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { handleLogout } from "@/lib/actions";
 import Link from "next/link";
 import { getProfile } from "@/lib/data";
@@ -28,33 +28,14 @@ const links = [
 ];
 
 const Links = ({ session }) => {
+
   
   const username = session?.user?.username;
-
+  // const profile = await getProfile();
 
   const [openBrg, setOpenBrg] = useState(false);
   const [openAvatar, setOpenAvatar] = useState(false);
-  const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (username) {
-        try {
-          const response = await getProfile('anna');
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const profileData = await response.json();
-          setProfile(profileData);
-        } catch (error) {
-          console.error('Failed to fetch profile:', error);
-          setProfile({ pfp: '/default-avatar.png' }); // Fallback to default avatar
-        }
-      }
-    };
-
-    fetchProfile();
-  }, [username]);
 
   const closeAvatar = () => {
     setOpenAvatar(false);
@@ -84,7 +65,7 @@ const Links = ({ session }) => {
             <div className={styles.avatarContainer}>
               <Image
                 className={styles.avatarBtn}
-                src={profile?.pfp}
+                src={profile?.pfp || '/noavatar.png'}
                 alt="profile-picture"
                 height={50}
                 width={50}
@@ -122,10 +103,10 @@ const Links = ({ session }) => {
           ))}
           {session?.user ? (
             <>
-              <Link href="./userProfile">
+              <Link href={`/profiles/${username}`}>
                 <Image
                   className={styles.avatarBtn}
-                  src={profile?.pfp || "/default-avatar.png"}
+                  src={profile?.pfp || "/noavatar.png"}
                   alt="profile-picture"
                   height={50}
                   width={50}
