@@ -27,12 +27,9 @@ const links = [
   }
 ];
 
-const Links = ({ session }) => {
-
+const Links = ({ session, profile }) => {
   
   const username = session?.user?.username;
-  // const profile = await getProfile();
-
   const [openBrg, setOpenBrg] = useState(false);
   const [openAvatar, setOpenAvatar] = useState(false);
 
