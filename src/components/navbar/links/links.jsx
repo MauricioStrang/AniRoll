@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { handleLogout } from "@/lib/actions";
 import Link from "next/link";
-import { getProfile } from "@/lib/data";
 
 const links = [
   {
