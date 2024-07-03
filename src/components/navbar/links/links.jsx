@@ -14,7 +14,7 @@ const links = [
   },
   {
     title: "About",
-    path: "/about"
+    path: "/about" //links array for the navbar tabs
   },
   {
     title: "Users",
@@ -27,15 +27,9 @@ const links = [
 ];
 
 const Links = ({ session, profile }) => {
-  
   const username = session?.user?.username;
-  const [openBrg, setOpenBrg] = useState(false);
-  const [openAvatar, setOpenAvatar] = useState(false);
-
-
-  const closeAvatar = () => {
-    setOpenAvatar(false);
-  };
+  const [openBrg, setOpenBrg] = useState(false); //useState for opening and closing the burger button that you see in mobile mode
+  const [openAvatar, setOpenAvatar] = useState(false); //useState for opening and closing menu when you click the profile picture
 
   const handleLogoutConfirm = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
@@ -47,21 +41,26 @@ const Links = ({ session, profile }) => {
   const logOut = (event) => {
     event.preventDefault();
     handleLogoutConfirm();
-    closeAvatar();
+    setOpenAvatar(false); // Close avatar menu on logout
+  };
+
+  const handleLinkClick = () => {
+    setOpenAvatar(false); // Close avatar menu on link click
+    setOpenBrg(false); // Close burger menu on link click
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
-          <NavLink item={link} key={link.title} />
+          <NavLink item={link} key={link.title} onClick={handleLinkClick} />
         ))}
         {session?.user ? (
           <>
             <div className={styles.avatarContainer}>
               <Image
                 className={styles.avatarBtn}
-                src={profile?.pfp || '/noavatar.png'}
+                src={profile?.pfp || "/noavatar.png"}
                 alt="profile-picture"
                 height={50}
                 width={50}
@@ -71,7 +70,7 @@ const Links = ({ session, profile }) => {
                 <div className={styles.avatarLinks}>
                   <NavLink
                     item={{ title: "profile", path: `/profiles/${username}` }}
-                    onClick={closeAvatar}
+                    onClick={handleLinkClick} // Close avatar menu on profile click
                   />
                   <form onSubmit={logOut}>
                     <button className={styles.logout}>Logout</button>
@@ -81,7 +80,10 @@ const Links = ({ session, profile }) => {
             </div>
           </>
         ) : (
-          <NavLink item={{ title: "login", path: "/login" }} />
+          <NavLink
+            item={{ title: "login", path: "/login" }}
+            onClick={handleLinkClick}
+          />
         )}
       </div>
       <Image
@@ -95,7 +97,7 @@ const Links = ({ session, profile }) => {
       {openBrg && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
-            <NavLink item={link} key={link.title} />
+            <NavLink item={link} key={link.title} onClick={handleLinkClick} />
           ))}
           {session?.user ? (
             <>
@@ -106,6 +108,7 @@ const Links = ({ session, profile }) => {
                   alt="profile-picture"
                   height={50}
                   width={50}
+                  onClick={handleLinkClick} // Close avatar menu on avatar click
                 />
               </Link>
               <form action={logOut}>
@@ -113,7 +116,10 @@ const Links = ({ session, profile }) => {
               </form>
             </>
           ) : (
-            <NavLink item={{ title: "login", path: "/login" }} />
+            <NavLink
+              item={{ title: "login", path: "/login" }}
+              onClick={handleLinkClick}
+            />
           )}
         </div>
       )}
