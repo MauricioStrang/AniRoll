@@ -14,7 +14,7 @@ const links = [
   },
   {
     title: "About",
-    path: "/about" //links array for the navbar tabs
+    path: "/about" // links array for default navbar tabs
   },
   {
     title: "Users",
@@ -26,51 +26,57 @@ const links = [
   }
 ];
 
-const Links = ({ session, profile }) => {
+const Links = ({ session, profile }) => {            //we get the current user session and it's profile as params
+
   const username = session?.user?.username;
   const [openBrg, setOpenBrg] = useState(false); //useState for opening and closing the burger button that you see in mobile mode
   const [openAvatar, setOpenAvatar] = useState(false); //useState for opening and closing menu when you click the profile picture
 
   const handleLogoutConfirm = async () => {
-    const confirmed = window.confirm("Are you sure you want to logout?");
+    const confirmed = window.confirm("Are you sure you want to logout?");  //function to be able to use the window.confirm in the logout
     if (confirmed) {
       await handleLogout();
     }
   };
 
-  const logOut = (event) => {
-    event.preventDefault();
+  const logOut = (event) => {    
+    event.preventDefault();   
     handleLogoutConfirm();
-    setOpenAvatar(false); // Close avatar menu on logout
+    setOpenAvatar(false); 
   };
 
-  const handleLinkClick = () => {
-    setOpenAvatar(false); // Close avatar menu on link click
-    setOpenBrg(false); // Close burger menu on link click
+
+  const handleCloseMenus = () => {
+    setOpenAvatar(false);               // when clicking any of the tabs, close all the menus
+    setOpenBrg(false); 
   };
 
+
+  
   return (
+
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
-          <NavLink item={link} key={link.title} onClick={handleLinkClick} />
+          <NavLink item={link} key={link.title} onClick={handleCloseMenus} />  
         ))}
-        {session?.user ? (
+
+        {session?.user ? (             //if there is a current session, make a profile picture appear, that has a menu to open when clicked
           <>
             <div className={styles.avatarContainer}>
               <Image
                 className={styles.avatarBtn}
-                src={profile?.pfp || "/noavatar.png"}
+                src={profile?.pfp || "/noavatar.png"}  //if the user doesn't have a pfp, get default noavatar
                 alt="profile-picture"
                 height={50}
                 width={50}
                 onClick={() => setOpenAvatar((prev) => !prev)}
               />
-              {openAvatar && (
+              {openAvatar && (    //menu for going to profile or logout
                 <div className={styles.avatarLinks}>
                   <NavLink
                     item={{ title: "profile", path: `/profiles/${username}` }}
-                    onClick={handleLinkClick} // Close avatar menu on profile click
+                    onClick={handleCloseMenus}
                   />
                   <form onSubmit={logOut}>
                     <button className={styles.logout}>Logout</button>
@@ -80,14 +86,18 @@ const Links = ({ session, profile }) => {
             </div>
           </>
         ) : (
+          //if there is no current session, have a tab for login
           <NavLink
             item={{ title: "login", path: "/login" }}
-            onClick={handleLinkClick}
+            onClick={handleCloseMenus}
           />
         )}
       </div>
-      <Image
-        className={styles.menuButton}
+
+
+
+      <Image                //on mobile, have a menu dropdown
+        className={styles.brgButton}
         src="/menu.png"
         alt="menu button"
         width={30}
@@ -97,7 +107,7 @@ const Links = ({ session, profile }) => {
       {openBrg && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
-            <NavLink item={link} key={link.title} onClick={handleLinkClick} />
+            <NavLink item={link} key={link.title} onClick={handleCloseMenus} />
           ))}
           {session?.user ? (
             <>
@@ -108,7 +118,7 @@ const Links = ({ session, profile }) => {
                   alt="profile-picture"
                   height={50}
                   width={50}
-                  onClick={handleLinkClick} // Close avatar menu on avatar click
+                  onClick={handleCloseMenus} // Close avatar menu on avatar click
                 />
               </Link>
               <form action={logOut}>
@@ -118,7 +128,7 @@ const Links = ({ session, profile }) => {
           ) : (
             <NavLink
               item={{ title: "login", path: "/login" }}
-              onClick={handleLinkClick}
+              onClick={handleCloseMenus}
             />
           )}
         </div>

@@ -43,7 +43,7 @@
   will open a vertical menu with the tabs */
   
   .mobileLinks,
-  .menuButton {
+  .brgButton {
     display: none;
     cursor: pointer;
   }

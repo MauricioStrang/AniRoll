@@ -47,6 +47,7 @@ const userProfile = async ({ params }) => {
                             {profile.createdAt.toString().slice(4, 16)}
                         </span>
                     </div>
+                    
                     <div className={styles.bioContainer}>
                         <div className={styles.bio}>{profile.desc}</div>
                         {isOwner && (

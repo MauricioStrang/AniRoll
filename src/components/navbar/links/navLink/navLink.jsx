@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation";
 
 
 const NavLink = ({item, onClick}) =>{
-
-
-
+    
     const pathName = usePathname(); // hook that lets you read and use the current URL's pathname.
     
     return (
