@@ -2,6 +2,8 @@ import { getProfile } from "@/lib/data";
 import styles from "./userProfile.module.css";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
+import BioEditor from "@/components/bioEditor/bioEditor";
+
 
 export const generateMetadata = async ({ params }) => {
     const { slug } = params;
@@ -14,6 +16,7 @@ export const generateMetadata = async ({ params }) => {
 };
 
 const userProfile = async ({ params }) => {
+
     const session = await auth();
     const { slug } = params; // getting the slug from params
     const profile = await getProfile(slug);
@@ -48,14 +51,24 @@ const userProfile = async ({ params }) => {
                         </span>
                     </div>
                     
-                    <div className={styles.bioContainer}>
-                        <div className={styles.bio}>{profile.desc}</div>
-                        {isOwner && (
-                            <button className={styles.changeBioButton}>
-                                Change Bio
-                            </button>
-                        )}
-                    </div>
+
+
+                    {/* WORKING ON THIS ////////////// */}
+
+                    {isOwner ? (
+                        <BioEditor slug={slug} currentBio={profile.bio} />
+                    ) : (
+
+                        //If not an owner, just generate the bio without the change bio button
+                        <div className={styles.bioContainer}>
+                            <div className={styles.bio}>{profile.bio}</div>        
+                        </div>
+                    )}
+
+                    {/* WORKING ON THIS ////////////// */}
+
+
+
                 </div>
             </div>
             <div className={styles.bottomContainer}>

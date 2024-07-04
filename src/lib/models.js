@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
 
 const profileSchema = new mongoose.Schema(
     {
-        desc: {
+        bio: {
             type: String,
             min: 3,
             max: 50,

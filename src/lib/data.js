@@ -58,14 +58,20 @@ export const getProfile = async (slug) => {
 }
 
 
-export const getProfileFromUsername = async (username) =>{
+export const updateProfileBio = async (slug, newBio) => {
     try {
         await connectToDb();
-        const profile = await Profile.findOne({ slug });
-        return profile;
+        const updatedProfile = await Profile.findOneAndUpdate(
+            { slug },
+            { bio: newBio },
+            { new: true } // This option returns the modified document rather than the original
+        );
+        if (!updatedProfile) {
+            throw new Error(`Profile with name '${slug}' not found`);
+        }
+        return updatedProfile;
     } catch (err) {
-        console.log(err);
-        throw new Error('failed to fetch the profile!')
+        console.error(`Error updating profile for name '${slug}':`, err);
+        throw new Error(`Failed to update the profile for name '${slug}'`);
     }
 }
-
