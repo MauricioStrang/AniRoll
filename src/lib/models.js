@@ -30,7 +30,7 @@ const profileSchema = new mongoose.Schema(
         bio: {
             type: String,
             min: 3,
-            max: 50,
+            max: 120,
         },
         pfp: {
             type: String,

@@ -23,6 +23,11 @@ const links = [
   {
     title: "Roll",
     path: "/roll"
+  },
+
+  {
+    title: "Test",
+    path: "/test"
   }
 ];
 

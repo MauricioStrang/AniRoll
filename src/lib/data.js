@@ -62,8 +62,8 @@ export const updateProfileBio = async (slug, newBio) => {
     try {
         await connectToDb();
         const updatedProfile = await Profile.findOneAndUpdate(
-            { slug },
-            { bio: newBio },
+            { slug },           //receives the username as a filter
+            { bio: newBio },    //then you select what you whant to change
             { new: true } // This option returns the modified document rather than the original
         );
         if (!updatedProfile) {
@@ -75,3 +75,4 @@ export const updateProfileBio = async (slug, newBio) => {
         throw new Error(`Failed to update the profile for name '${slug}'`);
     }
 }
+

@@ -1,0 +1,25 @@
+import Wheel from "@/components/wheel/Wheel";
+import styles from "./testPage.module.css"
+import { getProfile, updateProfileBio } from "@/lib/data";
+
+const testPage = async() => {
+
+    const anna = await getProfile('anna')
+
+    const slug = anna.slug
+    const updateNow = updateProfileBio(slug, 'hello there')
+
+    return (
+        <div>
+            <h1>Spin the Wheel!</h1>
+            <Wheel />
+            <div className={styles.updateContainer}>
+                <form action={updateNow}>
+                    <button>UPDATE ANNA NOW</button>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default testPage;

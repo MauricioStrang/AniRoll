@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import BioEditor from "@/components/bioEditor/bioEditor";
 
 
+
 export const generateMetadata = async ({ params }) => {
     const { slug } = params;
     const profile = await getProfile(slug);
@@ -18,7 +19,7 @@ export const generateMetadata = async ({ params }) => {
 const userProfile = async ({ params }) => {
 
     const session = await auth();
-    const { slug } = params; // getting the slug from params
+    const { slug } = params; // de-structuring params to get slug
     const profile = await getProfile(slug);
     const username = session?.user?.username;
 
@@ -42,6 +43,8 @@ const userProfile = async ({ params }) => {
                         </button>
                     )}
                 </div>
+
+
                 <div className={styles.textContainer}>
                     <h1 className={styles.username}>{profile.slug}</h1>
                     <div className={styles.detailText}>
@@ -56,7 +59,8 @@ const userProfile = async ({ params }) => {
                     {/* WORKING ON THIS ////////////// */}
 
                     {isOwner ? (
-                        <BioEditor slug={slug} currentBio={profile.bio} />
+                        //bioeditor should handle bio's changes
+                        <BioEditor username={username} currentBio={profile.bio} />
                     ) : (
 
                         //If not an owner, just generate the bio without the change bio button

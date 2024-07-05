@@ -4,15 +4,20 @@ import { useState } from "react";
 import styles from "./BioEditor.module.css";
 import { updateProfileBio } from "@/lib/data";
 
-    
-
-const BioEditor = ({ slug, currentBio, onSave }) => {
+const BioEditor = ({ username, currentBio }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newBio, setNewBio] = useState(currentBio);
 
-
     const handleBioChange = async (e) => {
-        updateProfileBio()
+        e.preventDefault();
+        try {
+            const updatedBio = await updateProfileBio(username, newBio);
+            console.log(`Updated bio for name '${username}'`);
+            setIsEditing(false);  // Stop editing after saving
+            return updatedBio;
+        } catch (err) {
+            console.error(`Error updating bio for name '${username}':`, err);
+        }
     };
 
     return (
@@ -20,6 +25,7 @@ const BioEditor = ({ slug, currentBio, onSave }) => {
             {isEditing ? (
                 <form onSubmit={handleBioChange}>
                     <textarea
+                        maxLength={50}
                         className={styles.bioInput}
                         value={newBio}
                         onChange={(e) => setNewBio(e.target.value)}
