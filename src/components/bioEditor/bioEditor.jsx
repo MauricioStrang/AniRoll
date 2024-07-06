@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./BioEditor.module.css";
 import { updateProfileBio } from "@/lib/data";
 
+
 const BioEditor = ({ username, currentBio }) => {
     
     const [isEditing, setIsEditing] = useState(false);
@@ -13,7 +14,7 @@ const BioEditor = ({ username, currentBio }) => {
     const handleBioChange = async (e) => {
         e.preventDefault();
         try {
-            const updatedBio = await updateProfileBio('anna', 'newBio');
+            const updatedBio = await updateProfileBio(username, newBio);
             console.log(`Updated bio for name '${username}'`);
             setIsEditing(false);  // Stop editing after saving
             return updatedBio;

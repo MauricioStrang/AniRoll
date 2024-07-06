@@ -1,5 +1,7 @@
 // db functions to get data
 
+"use server"
+
 import { Profile, User } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
@@ -46,33 +48,31 @@ export const getProfiles = async () =>{
 export const getProfile = async (slug) => {
     try {
         await connectToDb();
-        const profile = await Profile.findOne({ slug });
+        const profile = await Profile.findOne({ slug }).exec(); // Ensure to execute the query
         if (!profile) {
             throw new Error(`Profile with slug '${slug}' not found`);
         }
-        return profile;
+        return profile.toObject(); // Convert to plain object
     } catch (err) {
         console.error(`Error fetching profile for slug '${slug}':`, err);
         throw new Error(`Failed to fetch the profile for slug '${slug}'`);
     }
 }
 
-
 export const updateProfileBio = async (slug, newBio) => {
     try {
         await connectToDb();
         const updatedProfile = await Profile.findOneAndUpdate(
-            { slug },           //receives the username as a filter
-            { bio: newBio },    //then you select what you whant to change
-            { new: true } // This option returns the modified document rather than the original
-        );
+            { slug },
+            { bio: newBio },
+            { new: true }
+        ).exec(); // Ensure to execute the query
         if (!updatedProfile) {
             throw new Error(`Profile with name '${slug}' not found`);
         }
-        return updatedProfile;
+        return updatedProfile.toObject(); // Convert to plain object
     } catch (err) {
         console.error(`Error updating profile for name '${slug}':`, err);
         throw new Error(`Failed to update the profile for name '${slug}'`);
     }
 }
-
