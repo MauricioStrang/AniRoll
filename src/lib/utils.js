@@ -1,5 +1,7 @@
 //basically db connection
 
+"use server"
+
 import mongoose from "mongoose";
 
 const connection = {};  //since we are using dev mode, we don't want to create a new connection every refresh, so we create this empty object

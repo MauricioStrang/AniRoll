@@ -6,8 +6,8 @@ const testPage = async() => {
 
     const anna = await getProfile('anna')
 
-    const slug = anna.slug
-    const updateNow = updateProfileBio(slug, 'hello there')
+    const username = anna.slug
+    const updateNow = await updateProfileBio(username, 'I changed it')
 
     return (
         <div>

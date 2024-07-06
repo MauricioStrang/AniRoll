@@ -25,6 +25,7 @@ const userProfile = async ({ params }) => {
 
     const isOwner = username === profile.slug;
 
+
     return (
         <div className={styles.container}>
             <div className={styles.topContainer}>
@@ -38,6 +39,7 @@ const userProfile = async ({ params }) => {
                             />
                         </div>
                     {isOwner && (
+                      
                         <button className={styles.changeImageButton}>
                             Change Image
                         </button>
