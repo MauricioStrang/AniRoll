@@ -1,3 +1,5 @@
+//Page for random testing of function and component behaviours
+
 import Wheel from "@/components/wheel/Wheel";
 import styles from "./testPage.module.css"
 import { getProfile, updateProfileBio } from "@/lib/data";

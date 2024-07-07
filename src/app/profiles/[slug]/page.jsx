@@ -6,12 +6,12 @@ import BioEditor from "@/components/bioEditor/bioEditor";
 
 
 
-export const generateMetadata = async ({ params }) => {
+export const generateMetadata = async ({ params }) => {   // making the metadata dynamic
     const { slug } = params;
     const profile = await getProfile(slug);
 
     return {
-        title: `${profile.slug}'s profile`,
+        title: `${profile.slug}'s profile`,         
         description: profile.desc,
     };
 };
@@ -23,7 +23,7 @@ const userProfile = async ({ params }) => {
     const profile = await getProfile(slug);
     const username = session?.user?.username;
 
-    const isOwner = username === profile.slug;
+    const isOwner = username === profile.slug;  //if the session is the same as the slug you gain access to functions in your profile
 
 
     return (
@@ -57,11 +57,8 @@ const userProfile = async ({ params }) => {
                     </div>
                     
 
-
-                    {/* WORKING ON THIS ////////////// */}
-
                     {isOwner ? (
-                        //bioeditor should handle bio's changes
+                        //bioeditor should handle the current session bio and it's changes
                         <BioEditor username={username} currentBio={profile.bio} />
                     ) : (
 
@@ -71,12 +68,12 @@ const userProfile = async ({ params }) => {
                         </div>
                     )}
 
-                    {/* WORKING ON THIS ////////////// */}
-
-
 
                 </div>
             </div>
+
+            {/* FUTURE ROLLS TABS */}
+
             <div className={styles.bottomContainer}>
                 <div className={styles.officialTab}>
                     <button>Official Rolls History</button>

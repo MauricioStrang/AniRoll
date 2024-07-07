@@ -48,11 +48,11 @@ export const getProfiles = async () =>{
 export const getProfile = async (slug) => {
     try {
         await connectToDb();
-        const profile = await Profile.findOne({ slug }).exec(); // Ensure to execute the query
+        const profile = await Profile.findOne({ slug })
         if (!profile) {
             throw new Error(`Profile with slug '${slug}' not found`);
         }
-        return profile.toObject(); // Convert to plain object
+        return profile
     } catch (err) {
         console.error(`Error fetching profile for slug '${slug}':`, err);
         throw new Error(`Failed to fetch the profile for slug '${slug}'`);
@@ -62,15 +62,15 @@ export const getProfile = async (slug) => {
 export const updateProfileBio = async (slug, newBio) => {
     try {
         await connectToDb();
-        const updatedProfile = await Profile.findOneAndUpdate(
-            { slug },
-            { bio: newBio },
+        const updatedProfile = await Profile.findOneAndUpdate(            //finOneAndUpdate works by getting a filter(in this case the username)
+            { slug },                                                     //then gets the update input
+            { bio: newBio },                                              //and this new is to return the new bio instead of the last one
             { new: true }
-        ).exec(); // Ensure to execute the query
+        ) 
         if (!updatedProfile) {
             throw new Error(`Profile with name '${slug}' not found`);
         }
-        return updatedProfile.toObject(); // Convert to plain object
+        return updatedProfile
     } catch (err) {
         console.error(`Error updating profile for name '${slug}':`, err);
         throw new Error(`Failed to update the profile for name '${slug}'`);

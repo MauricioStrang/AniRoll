@@ -5,14 +5,17 @@ import styles from "./BioEditor.module.css";
 import { updateProfileBio } from "@/lib/data";
 
 
-const BioEditor = ({ username, currentBio }) => {
+const BioEditor = ({ username, currentBio }) => {  //we pass the username and the last bio before change
     
-    const [isEditing, setIsEditing] = useState(false);
-    const [newBio, setNewBio] = useState(currentBio);
+
+    const [isEditing, setIsEditing] = useState(false); //Controls the opening and closing of the editing textarea box
+
+    // State to hold the value of the bio being edited. defaulted to current Bio.
+    const [newBio, setNewBio] = useState(currentBio); 
 
 
     const handleBioChange = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); //stops the form from submitting in the traditional way, handleling the submission with JavaScript instead. (idk breaks everything if not)
         try {
             const updatedBio = await updateProfileBio(username, newBio);
             console.log(`Updated bio for name '${username}'`);
@@ -28,11 +31,13 @@ const BioEditor = ({ username, currentBio }) => {
             {isEditing ? (
                 <form onSubmit={handleBioChange}>
                     <textarea
-                        maxLength={50}
+                        minLength={3}
+                        maxLength={120}
                         className={styles.bioInput}
-                        value={newBio}
-                        onChange={(e) => setNewBio(e.target.value)}
+                        value={newBio}  //display the current value of newBio so you can see the bio text when you open the textarea.
+                        onChange={(e) => setNewBio(e.target.value)} //sets up an event listener to update the newBio state. Every time the user types in the textarea, the onChange event triggers.
                     />
+                    
                     <button type="submit" className={styles.saveBioButton}>
                         Save
                     </button>
@@ -46,6 +51,8 @@ const BioEditor = ({ username, currentBio }) => {
                 </form>
             ) : (
                 <>
+
+                {/* default behaviour, just show the bio and the buttons for the owner */}
                     <div className={styles.bio}>{currentBio}</div>
                     <button
                         className={styles.changeBioButton}
