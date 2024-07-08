@@ -3,6 +3,7 @@
 import Wheel from "@/components/wheel/Wheel";
 import styles from "./testPage.module.css"
 import { getProfile, updateProfileBio } from "@/lib/data";
+import ImageEditor from "@/components/ImageEditor/imageEditor";
 
 const testPage = async() => {
 
@@ -20,6 +21,9 @@ const testPage = async() => {
                     <button>UPDATE ANNA NOW</button>
                 </form>
             </div>
+
+            <b></b><b></b><b></b><b></b>
+            <ImageEditor username={username}/>
         </div>
     );
 };

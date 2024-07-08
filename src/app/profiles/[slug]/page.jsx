@@ -3,6 +3,7 @@ import styles from "./userProfile.module.css";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
 import BioEditor from "@/components/bioEditor/bioEditor";
+import ImageEditor from "@/components/ImageEditor/imageEditor";
 
 
 
@@ -39,10 +40,13 @@ const userProfile = async ({ params }) => {
                             />
                         </div>
                     {isOwner && (
-                      
-                        <button className={styles.changeImageButton}>
-                            Change Image
-                        </button>
+
+                        //Component that handles the profile picture change
+                        <div>
+                            <ImageEditor username={username}/>
+                        </div>
+                        
+                        
                     )}
                 </div>
 
