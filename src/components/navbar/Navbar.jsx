@@ -7,7 +7,8 @@ import { getProfile } from "@/lib/data"
 
 const Navbar = async()=>{
     const session = await auth()
-    const profile = await getProfile(session?.user?.username);
+    //this is to handle when there is no user loggedin to not get errors
+    const profile = session ? await getProfile(session?.user?.username) : "NoUser"
     return (
         <div className={styles.container}>
             <Link href="/" className={styles.logo}><Image src='/logo.png' width={200} height={80} alt="logo" priority="high"/></Link>  
