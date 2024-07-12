@@ -4,6 +4,7 @@ import { useState } from 'react'
 import styles from './WheelComponent.module.css'
 import { Wheel } from 'react-custom-roulette'
 
+//wheeel of names
 const data = [
   { option: '0',},
   { option: '1',},
