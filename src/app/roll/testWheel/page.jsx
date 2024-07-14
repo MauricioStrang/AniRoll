@@ -5,7 +5,6 @@ import WheelComponent from '@/components/wheel/WheelComponent';
 const TestWheel = () => {
   return (
     <div className={styles.container}>
-      <h1>Test Wheel</h1>
       <div className={styles.wheelContainer}>
           <WheelComponent/>
       </div>
