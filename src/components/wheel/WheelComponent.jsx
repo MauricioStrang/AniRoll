@@ -9,7 +9,6 @@ const data = [
   { option: '',},
   { option: '',},
   { option: '',},
-  { option: '',},
 ]
 
 const WheelComponent = () => {
@@ -47,11 +46,28 @@ const WheelComponent = () => {
           }}
         />
       </div>
+
+
+
       <div className={styles.btnContainer}>
-        <button className={styles.spinBtn} onClick={handleSpinClick}>SPIN</button>
+
+        {data.length == 4 ?(  //When there is four elements on the wheel, button enables and you are able to spin
+          <button className={styles.spinBtn} onClick={handleSpinClick}>SPIN</button>
+        ) : (
+          <button className={styles.inactiveSpinBtn}>SPIN</button>
+        )}
+
       </div>
+
+
       <div className={styles.btnContainer}>
-          <button className={styles.getAnimeBtn} onClick={handleGetAnimeClick}>SPIN</button>
+
+        {data.length == 4 ?(  //When there is four elements on the wheel, button grays out and cannot add more
+          <button className={styles.inactiveAnimeBtn} >GET ANIME</button>
+        ) : (
+          <button className={styles.getAnimeBtn} onClick={handleGetAnimeClick}>GET ANIME</button>
+        )}
+
       </div>
     </div>  
     
