@@ -14,8 +14,6 @@ const data = [
 const WheelComponent = () => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
-
-
   const handleSpinClick = () => {
     if (!mustSpin) {
       const newPrizeNumber = Math.floor(Math.random() * data.length);
@@ -24,8 +22,10 @@ const WheelComponent = () => {
     }
   }
 
+
+  const[addAnime, setAddAnime] = useState(data)
+
   const handleGetAnimeClick = ()=>{
-    data.push({option: 'berserk'})
   }
 
   return (
