@@ -1,4 +1,4 @@
-//Wheel Component
+//Wheel Component using wonderfull library
 'use client'
 import { useState } from 'react'
 import styles from './WheelComponent.module.css'
@@ -6,8 +6,6 @@ import { Wheel } from 'react-custom-roulette'
 
 //Each of the partition of the wheel
 const data = [
-  { option: '',},
-  { option: '',},
   { option: '',},
 ]
 
@@ -23,9 +21,17 @@ const WheelComponent = () => {
   }
 
 
-  const[addAnime, setAddAnime] = useState(data)
+  const[wheelData, setWheelData] = useState(data)  //useState to handle the adding of new animes
 
-  const handleGetAnimeClick = ()=>{
+  
+
+  const handleGetAnimeClick = () => {
+    let updatedData = wheelData;
+    if (wheelData.length === 1 && wheelData[0].option === '') {
+      updatedData = [];   //This is to remove the example first slice, we create a new empty array so only the ones that we put are shown
+    }
+    setWheelData([...updatedData, { option: 'example1' }]);  //the new wheel data, we use the spread operator to create
+                                                    //a new array with all the data from the wheeldata plus the new options
   }
 
   return (
@@ -35,7 +41,7 @@ const WheelComponent = () => {
         <Wheel
           mustStartSpinning={mustSpin}
           prizeNumber={prizeNumber}
-          data={data}
+          data={wheelData}       
           textColors={['#d2d4c8']}
           backgroundColors={['#7209b7','#4cc9f0', '#f72585', '#4361ee','#3a0ca3', ]}
           radiusLineColor={"#250902"}
@@ -51,7 +57,7 @@ const WheelComponent = () => {
 
       <div className={styles.btnContainer}>
 
-        {data.length == 4 ?(  //When there is four elements on the wheel, button enables and you are able to spin
+        {wheelData.length == 4 ?(  //When there is four elements on the wheel, button enables and you are able to spin
           <button className={styles.spinBtn} onClick={handleSpinClick}>SPIN</button>
         ) : (
           <button className={styles.inactiveSpinBtn}>SPIN</button>
@@ -62,7 +68,7 @@ const WheelComponent = () => {
 
       <div className={styles.btnContainer}>
 
-        {data.length == 4 ?(  //When there is four elements on the wheel, button grays out and cannot add more
+        {wheelData.length == 4 ?(  //When there is four elements on the wheel, button grays out and cannot add more
           <button className={styles.inactiveAnimeBtn} >GET ANIME</button>
         ) : (
           <button className={styles.getAnimeBtn} onClick={handleGetAnimeClick}>GET ANIME</button>
