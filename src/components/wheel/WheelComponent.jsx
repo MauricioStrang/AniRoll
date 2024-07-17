@@ -6,7 +6,7 @@ import { Wheel } from 'react-custom-roulette'
 
 //Each of the partition of the wheel
 const data = [
-  { option: '',},
+  { option: '',}, //default option to show something to the user
 ]
 
 const WheelComponent = () => {
@@ -43,7 +43,7 @@ const WheelComponent = () => {
           prizeNumber={prizeNumber}
           data={wheelData}       
           textColors={['#d2d4c8']}
-          backgroundColors={['#7209b7','#4cc9f0', '#f72585', '#4361ee','#3a0ca3', ]}
+          backgroundColors={['#7209b7','#4cc9f0', '#f72585', '#4361ee','#3a0ca3', ]} //wheel has 5 default colors
           radiusLineColor={"#250902"}
           innerBorderWidth= {1}
           radiusLineWidth	={3}
