@@ -1,5 +1,5 @@
 //MyAnimeList uses The OAuth workflow with PKCE protocol
-// Before authentificating the user, need to generate a Code Verifier and a Code Challenge.
+//Before authentificating the user, need to generate a Code Verifier and a Code Challenge.
 
 import crypto from 'crypto';
 
