@@ -2,15 +2,16 @@
 import styles from './testWheel.module.css';
 import WheelComponent from '@/components/wheel/WheelComponent';
 
+//tried using chatgpt to retrieve mal info, failed
 const TestWheel = () => {
-  return (
-    <div className={styles.container}>
+
+return (
+  <div className={styles.container}>
       <div className={styles.wheelContainer}>
-        <WheelComponent />
+        <WheelComponent/>
       </div>
-      <div className={styles.blankSpace}></div>
-    </div>
-  );
+  </div>
+);
 };
 
 export default TestWheel;
