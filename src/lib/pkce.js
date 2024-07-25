@@ -1,13 +1,16 @@
 //MyAnimeList uses The OAuth workflow with PKCE protocol
 //Before authentificating the user, need to generate a Code Verifier and a Code Challenge.
 
-import crypto from 'crypto';
+export function generateCodeVerifier() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+    let result = '';
+    for (let i = 0; i < 128; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
 
-export const generateCodeVerifier = () => {
-    const codeVerifier = crypto.randomBytes(64).toString('base64url');
-    return codeVerifier;
-};
-
-export const generateCodeChallenge = (codeVerifier) => {
-    return codeVerifier; // MAL uses plain transformation, so it's the same as the verifier
-};
+  
+  export function generateCodeChallenge(verifier) {
+    return verifier; // MAL uses plain transformation
+  }
