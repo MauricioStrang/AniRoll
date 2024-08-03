@@ -53,3 +53,28 @@ callbacks:{                //Callbacks are functions that allow you to control t
 }
 })
 
+
+
+
+//OAuth for MyAnimeList to generate the authorisation URL
+export const generateAuthUrl = (clientId, codeChallenge, state)=>{
+
+    const baseUrl = 'https://myanimelist.net/v1/oauth2/authorize';
+    const responseType = 'code';
+  
+
+    //we construct the URL making it an object
+    const url = new URL(baseUrl);
+    url.searchParams.append('response_type', responseType);
+    url.searchParams.append('client_id', clientId);
+    url.searchParams.append('code_challenge', codeChallenge);
+
+  if (state) {
+    url.searchParams.append('state', state);
+  }
+
+
+  url.searchParams.append('code_challenge_method', 'plain');
+
+  return url.toString();
+}
