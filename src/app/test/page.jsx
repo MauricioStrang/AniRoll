@@ -12,6 +12,7 @@ const testPage = () => {
         <div className={styles.container}>
             <h1>GENERATE AUTHORISATION</h1>
             <AuthButton />
+            
         </div>           
   );
 };
