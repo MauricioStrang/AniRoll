@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 const AuthButton = () => {
   const clientId = process.env.NEXT_PUBLIC_MAL_CLIENT_ID;
   const state = 'RequestID42'; // Optional
-  const redirectUri = 'http://localhost:3000/api/callback';
+  const redirectUri = 'http://localhost:3000/callback';
 
   const handleAuthClick = async () => {
     const codeVerifier = generateCodeVerifier();

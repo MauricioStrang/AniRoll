@@ -42,7 +42,7 @@ export async function GET(request) {
     setCookie('access_token', data.access_token, { req: request, res: NextResponse.next(), httpOnly: true });
 
     // Redirect the user to the homepage or a dashboard after successful authentication
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/callback', request.url));
   } catch (error) {
     console.error('Error during token exchange:', error);
     return new Response(JSON.stringify({ error: error.message || 'Internal Server Error' }), { status: 500 });
