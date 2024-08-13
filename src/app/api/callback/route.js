@@ -28,7 +28,7 @@ export async function GET(request) {
         code: code, // Pass the authorization code from the query parameters
         code_verifier: codeVerifier, // Use the code_verifier stored in cookies
         grant_type: 'authorization_code',
-        redirect_uri: process.env.MAL_REDIRECT_URI,
+        redirect_uri: process.env.NEXT_PUBLIC_MAL_REDIRECT_URI,
       }),
     });
 
