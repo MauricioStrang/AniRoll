@@ -1,3 +1,5 @@
+//Request to convert the code verifier and state into the access token to be able to make API Request to MAL
+
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
@@ -11,7 +13,7 @@ export async function POST(request) {
       : {};
   };
 
-  // Parse cookies
+  // We parse cookies
   const cookies = parseCookies(cookieHeader);
 
   // Extract code_verifier from the cookies
