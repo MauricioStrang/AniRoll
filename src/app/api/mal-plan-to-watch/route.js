@@ -1,8 +1,6 @@
-
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-  // Retrieve the access token from the request headers (sent from the client)
   const authorization = request.headers.get('Authorization');
   
   if (!authorization) {
@@ -10,19 +8,33 @@ export async function GET(request) {
   }
 
   const accessToken = authorization.split(' ')[1]; // Extract the token
+  const limit = 100; // Maximum limit per request, adjust if needed
+  let offset = 0; // Offset for pagination
+  let allAnime = [];
+  let hasMore = true;
 
-  // Fetch the plan to watch list from MyAnimeList API
-  const response = await fetch('https://api.myanimelist.net/v2/users/@me/animelist?status=plan_to_watch', {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  while (hasMore) {
+    const response = await fetch(`https://api.myanimelist.net/v2/users/@me/animelist?status=plan_to_watch&limit=${limit}&offset=${offset}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!response.ok) {
-    return NextResponse.json({ error: 'Failed to fetch plan to watch list' }, { status: response.status });
+    if (!response.ok) {
+      return NextResponse.json({ error: 'Failed to fetch plan to watch list' }, { status: response.status });
+    }
+
+    const data = await response.json();
+    allAnime = allAnime.concat(data.data);
+
+    // Check if there are more items to fetch
+    if (data.paging && data.paging.next) {
+      offset += limit; // Move to the next page
+    } else {
+      hasMore = false; // No more pages
+    }
   }
 
-  const data = await response.json();
-  return NextResponse.json(data);
+  return NextResponse.json({ data: allAnime });
 }
