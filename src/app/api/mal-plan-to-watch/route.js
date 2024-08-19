@@ -1,3 +1,5 @@
+//API request to get the user's plan to watch list
+
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
@@ -8,8 +10,8 @@ export async function GET(request) {
   }
 
   const accessToken = authorization.split(' ')[1]; // Extract the token
-  const limit = 100; // Maximum limit per request, adjust if needed
-  let offset = 0; // Offset for pagination
+  const limit = 100; // maximize the limit of titles that you can get (default is 10)
+  let offset = 0; // MyAnimeList API results are paginated, so we handle pagination to retrieve more than the default limit.
   let allAnime = [];
   let hasMore = true;
 
@@ -28,7 +30,7 @@ export async function GET(request) {
     const data = await response.json();
     allAnime = allAnime.concat(data.data);
 
-    // Check if there are more items to fetch
+    // Check if there are more pages to fetch
     if (data.paging && data.paging.next) {
       offset += limit; // Move to the next page
     } else {

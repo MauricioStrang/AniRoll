@@ -1,3 +1,5 @@
+//Button component that starts the request for the plan-to-watch list
+
 'use client';
 
 import { useState } from 'react';
@@ -5,6 +7,7 @@ import { useState } from 'react';
 const WatchListButton = () => {
   const [planToWatchList, setPlanToWatchList] = useState([]);
   const [error, setError] = useState(null);
+
 
   const fetchPlanToWatch = async () => {
     try {
@@ -21,7 +24,7 @@ const WatchListButton = () => {
       }
 
       const data = await response.json();
-      setPlanToWatchList(data.data); // Assuming `data` contains the list
+      setPlanToWatchList(data.data);
     } catch (error) {
       setError(error.message);
     }
