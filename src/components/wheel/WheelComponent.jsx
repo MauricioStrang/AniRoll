@@ -9,11 +9,16 @@ const data = [
   { option: '',}, //default option to show something to the user
 ]
 
+let animes =[
+
+]
+
 const WheelComponent = () => {
 
+  const [animes, setAnimes] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    
     const fetchPlanToWatch = async () => {
       try {
         const accessToken = localStorage.getItem('access_token');
@@ -23,22 +28,21 @@ const WheelComponent = () => {
             'Authorization': `Bearer ${accessToken}`,
           },
         });
-  
+
         if (!response.ok) {
           throw new Error('Failed to fetch plan to watch list');
         }
-  
-        const data = await response.json();
-      } catch (error) {
-        setError(error.message);
 
+        const data = await response.json();
+        setAnimes(data.data); 
+        console.log(data.data);
+
+      } catch (error) {
+        setError(error.message); 
       }
     };
 
-    
-    return () => {
-      fetchPlanToWatch
-    };
+    fetchPlanToWatch(); 
   }, []); 
 
 
@@ -107,6 +111,13 @@ const WheelComponent = () => {
         )}
 
       </div>
+
+
+      <ul>
+        {animes.map((item) => (
+          <li key={item.node.id}>{item.node.title}</li> // Adjust based on the API response structure
+        ))}
+      </ul>
     </div>  
     
   )
