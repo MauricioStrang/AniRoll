@@ -9,43 +9,40 @@ const data = [
   { option: '',}, //default option to show something to the user
 ]
 
-let animes =[
-
-]
 
 const WheelComponent = () => {
 
-  const [animes, setAnimes] = useState([]);
-  const [error, setError] = useState(null);
+  const [animes, setAnimes] = useState([]); //anime list array holder
 
   useEffect(() => {
-    const fetchPlanToWatch = async () => {
-      try {
-        const accessToken = localStorage.getItem('access_token');
-        const response = await fetch('/api/mal-plan-to-watch', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch plan to watch list');
+      const fetchPlanToWatch = async () => {
+        try {
+          const accessToken = localStorage.getItem('access_token'); //we get the item that is saved in local storage
+          const response = await fetch('/api/mal-plan-to-watch', {  //and we make a fetch following the mal All Bearer HTTP authentication scheme.
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+            },
+          });
+  
+          if (!response.ok) {
+            throw new Error('Failed to fetch plan to watch list');
+          }
+  
+          const data = await response.json();
+          const titles = data.data.map((anime) => anime.node.title);
+          setAnimes(titles);
+  
+        } catch (error) {
+          console.log(error.message);
         }
-
-        const data = await response.json();
-        setAnimes(data.data); 
-        console.log(data.data);
-
-      } catch (error) {
-        setError(error.message); 
-      }
-    };
-
-    fetchPlanToWatch(); 
-  }, []); 
+      };
+      fetchPlanToWatch(); 
+    
+  }, []);
 
 
+  //react-custom-roulette states and functions
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const handleSpinClick = () => {
@@ -55,12 +52,12 @@ const WheelComponent = () => {
       setMustSpin(true);
     }
   }
-
-
   const[wheelData, setWheelData] = useState(data)  //useState to handle the adding of new animes
 
   
 
+
+//function to the addition of animes, soon will add from mal api
   const handleGetAnimeClick = () => {
     let updatedData = wheelData;
     if (wheelData.length === 1 && wheelData[0].option === '') {
@@ -89,8 +86,6 @@ const WheelComponent = () => {
         />
       </div>
 
-
-
       <div className={styles.btnContainer}>
 
         {wheelData.length == 4 ?(  //When there is four elements on the wheel, button enables and you are able to spin
@@ -104,20 +99,14 @@ const WheelComponent = () => {
 
       <div className={styles.btnContainer}>
 
-        {wheelData.length == 4 ?(  //When there is four elements on the wheel, button grays out and cannot add more
+        {wheelData.length == 4 ?(  //When there is four elements on the wheel, show this gray button and cannot add more
           <button className={styles.inactiveAnimeBtn} >GET ANIME</button>
+          
         ) : (
           <button className={styles.getAnimeBtn} onClick={handleGetAnimeClick}>GET ANIME</button>
         )}
 
       </div>
-
-
-      <ul>
-        {animes.map((item) => (
-          <li key={item.node.id}>{item.node.title}</li> // Adjust based on the API response structure
-        ))}
-      </ul>
     </div>  
     
   )
