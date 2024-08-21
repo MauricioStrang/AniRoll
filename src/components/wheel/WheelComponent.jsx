@@ -1,6 +1,6 @@
 //Wheel Component using wonderfull library
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './WheelComponent.module.css'
 import { Wheel } from 'react-custom-roulette'
 
@@ -10,6 +10,38 @@ const data = [
 ]
 
 const WheelComponent = () => {
+
+
+  useEffect(() => {
+    
+    const fetchPlanToWatch = async () => {
+      try {
+        const accessToken = localStorage.getItem('access_token');
+        const response = await fetch('/api/mal-plan-to-watch', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch plan to watch list');
+        }
+  
+        const data = await response.json();
+      } catch (error) {
+        setError(error.message);
+
+      }
+    };
+
+    
+    return () => {
+      fetchPlanToWatch
+    };
+  }, []); 
+
+
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const handleSpinClick = () => {
