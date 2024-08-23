@@ -14,6 +14,8 @@ const WheelComponent = () => {
 
   const [animes, setAnimes] = useState([]); //anime list array holder
 
+
+  //use effect to load the animes from the api
   useEffect(() => {
       const fetchPlanToWatch = async () => {
         try {
