@@ -65,7 +65,11 @@ const WheelComponent = () => {
     if (wheelData.length === 1 && wheelData[0].option === '') {
       updatedData = [];   //This is to remove the example first slice, we create a new empty array so only the ones that we put are shown
     }
-    setWheelData([...updatedData, { option: 'example1' }]);  //the new wheel data, we use the spread operator to create
+
+    //Gets a random index from the anime useState
+    const randomAnime = animes[Math.floor(Math.random() * animes.length)];
+
+    setWheelData([...updatedData, { option: randomAnime }]);  //the new wheel data, we use the spread operator to create
                                                     //a new array with all the data from the wheeldata plus the new options
   }
 
