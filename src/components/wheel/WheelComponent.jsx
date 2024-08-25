@@ -67,10 +67,13 @@ const WheelComponent = () => {
     }
 
     //Gets a random index from the anime useState
-    const randomAnime = animes[Math.floor(Math.random() * animes.length)];
+    const randomIndex = Math.floor(Math.random() * animes.length);
+    const randomAnime = animes[randomIndex];
 
     setWheelData([...updatedData, { option: randomAnime }]);  //the new wheel data, we use the spread operator to create
                                                     //a new array with all the data from the wheeldata plus the new options
+    setAnimes(animes.filter((_, index) => index !== randomIndex));
+                                                    
   }
 
   return (
