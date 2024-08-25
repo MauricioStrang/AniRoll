@@ -1,0 +1,26 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.btnContainer{    
+    width: 350px;  
+    padding: 20px;
+    background-color: var(--bg);
+}
+
+.btn{      
+    font-size: 25px;     
+    width: 100%;
+    padding: 20px;
+    cursor: pointer;
+    background-color: var(--btn);
+    color: var(--textColor);
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+}

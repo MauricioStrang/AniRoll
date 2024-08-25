@@ -1,6 +1,6 @@
 //Page for the real wheel that you'll be able to use once a month
 
-import styles from './testWheel.module.css'
+import styles from './realWheel.module.css'
 
 
 export const metadata = {

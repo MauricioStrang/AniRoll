@@ -22,7 +22,7 @@ const links = [
   },
   {
     title: "Roll",
-    path: "/roll/testWheel"
+    path: "/roll"
   },
 
   {
