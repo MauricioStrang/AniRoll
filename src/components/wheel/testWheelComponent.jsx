@@ -1,16 +1,16 @@
 //Wheel Component using wonderfull library
 'use client'
 import { useEffect, useState } from 'react'
-import styles from './WheelComponent.module.css'
+import styles from './testWheelComponent.module.css'
 import { Wheel } from 'react-custom-roulette'
 
-//Each of the partition of the wheel
+
 const data = [
   { option: '',}, //default option to show something to the user
 ]
 
 
-const WheelComponent = () => {
+const testWheelComponent = () => {
 
   const [animes, setAnimes] = useState([]); //anime list array holder
 
@@ -29,12 +29,11 @@ const WheelComponent = () => {
   
           if (!response.ok) {
             throw new Error('Failed to fetch plan to watch list');
-          }
-  
+          } 
           const data = await response.json();
           const titles = data.data.map((anime) => anime.node.title);
           setAnimes(titles);
-  
+          
         } catch (error) {
           console.log(error.message);
         }
@@ -121,4 +120,4 @@ const WheelComponent = () => {
   )
 }
 
-export default WheelComponent;
+export default testWheelComponent;

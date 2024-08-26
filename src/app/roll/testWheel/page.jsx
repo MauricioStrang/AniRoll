@@ -4,7 +4,7 @@ import styles from './testWheel.module.css';
 
 // got error with next js server side with wheelComponent, it tries to import and execute parts of the code during the server-side rendering phase,
 // to make sure the component is only rendered on the client side.
-const WheelComponent = dynamic(() => import('@/components/wheel/WheelComponent'), {
+const WheelComponent = dynamic(() => import('@/components/wheel/testWheelComponent'), {
   ssr: false, 
 });
 

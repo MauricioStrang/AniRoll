@@ -1,5 +1,6 @@
 //Page for the real wheel that you'll be able to use once a month
 
+import OfficialWheelComponent from '@/components/wheel/officialWheelComponent';
 import styles from './realWheel.module.css'
 
 
@@ -8,15 +9,15 @@ export const metadata = {
     description: "Anime Wheel page",
   };
 
-const RealWheelPage = () => {
+const officialWheelPage = () => {
     return (
         <div className={styles.container}>
-            <h1>
-                Real Wheel Page
-            </h1>
+            <div className={styles.wheelContainer}>
+                <OfficialWheelComponent />
+            </div>
         </div>
     )
 };
 
 
-export default RealWheelPage;
+export default officialWheelPage;
