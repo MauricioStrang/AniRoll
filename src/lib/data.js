@@ -2,7 +2,7 @@
 
 "use server"
 
-import { Profile, User } from "./models";
+import { Profile, Roll, User } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -58,6 +58,22 @@ export const getProfile = async (slug) => {
         throw new Error(`Failed to fetch the profile '${slug}'`);
     }
 }
+
+
+export const getRolls = async () =>{
+    try {
+        await connectToDb();
+        const rolls = await Roll.find();
+        return rolls;
+    } catch (err) {
+        console.log(err);
+        throw new Error('failed to fetch rolls!')
+    }
+}
+
+
+
+
 
 export const updateProfileBio = async (slug, newBio) => {
     try {
