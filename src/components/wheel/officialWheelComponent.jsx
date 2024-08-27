@@ -78,6 +78,7 @@ const OfficialWheelComponent = () => {
   return (
 
     <div className={styles.container}>
+      <h1>Official Anime Wheel</h1>
       <div className={styles.wheelContainer}>
         <Wheel
           mustStartSpinning={mustSpin}

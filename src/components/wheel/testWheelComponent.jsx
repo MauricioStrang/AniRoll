@@ -33,6 +33,8 @@ const testWheelComponent = () => {
           const data = await response.json();
           const titles = data.data.map((anime) => anime.node.title);
           setAnimes(titles);
+          console.log(data.data);
+          
           
         } catch (error) {
           console.log(error.message);
