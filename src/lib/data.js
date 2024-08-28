@@ -12,7 +12,7 @@ export const getUsers = async () =>{
     try {
         connectToDb();
         const users = await User.find();
-        return users;
+        return users.toObject();
     } catch (err) {
         console.log(err);
         throw new Error('failed to fetch users!')
@@ -24,7 +24,7 @@ export const getUser = async (id) =>{
     try {
         connectToDb();
         const user = await User.findById(id);
-        return user;
+        return user.toObject()
     } catch (err) {
         console.log(err);
         throw new Error('failed to fetch the user!')
@@ -37,7 +37,7 @@ export const getProfiles = async () =>{
     try {
         await connectToDb();
         const profiles = await Profile.find();
-        return profiles;
+        return profiles
     } catch (err) {
         console.log(err);
         throw new Error('failed to fetch profiles!')
@@ -48,11 +48,14 @@ export const getProfiles = async () =>{
 export const getProfile = async (slug) => {
     try {
         await connectToDb();
-        const profile = await Profile.findOne({ slug })
+        const profile = await Profile.findOne({ slug }).lean(); // Use lean to get a plain JavaScript object
         if (!profile) {
             throw new Error(`Profile '${slug}' not found`);
         }
-        return profile
+        
+        profile._id = profile._id.toString(); // Convert _id to a string, solving annoying server-client error.
+        
+        return profile; 
     } catch (err) {
         console.error(`Error fetching profile '${slug}':`, err);
         throw new Error(`Failed to fetch the profile '${slug}'`);
@@ -86,16 +89,8 @@ export const updateProfileBio = async (slug, newBio) => {
         if (!updatedProfileBio) {
             throw new Error(`Profile '${slug}' not found`);
         }
-
-        // Convert the Mongoose document to a plain JavaScript object
-        const profileObj = updatedProfileBio.toObject();
-
-        // Manually convert fields to simple values to avoid plain object error
-        profileObj._id = profileObj._id.toString();
-        profileObj.createdAt = profileObj.createdAt.toISOString();
-        profileObj.updatedAt = profileObj.updatedAt.toISOString();
-
-        return profileObj;
+     
+        return updateProfileBio.toObject();
     } catch (err) {
         console.error(`Error updating profile bio for '${slug}'`, err);
         throw new Error(`Failed to update the profile bio for '${slug}'`);
@@ -115,15 +110,7 @@ export const updateProfilePicture = async (slug, newPic) => {
             throw new Error(`Profile with '${slug}' not found`);
         }
 
-        // Convert the Mongoose document to a plain JavaScript object
-        const profileObj = updatedProfilePic.toObject();
-
-        // Manually convert fields to simple values to avoid plain object error
-        profileObj._id = profileObj._id.toString();
-        profileObj.createdAt = profileObj.createdAt.toISOString();
-        profileObj.updatedAt = profileObj.updatedAt.toISOString();
-
-        return profileObj;
+        return updateProfilePicture.toObject();
     } catch (err) {
         console.error(`Error updating profile picture for '${slug}'`, err);
         throw new Error(`Failed to update the profile picture for '${slug}'`);
