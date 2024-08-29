@@ -48,18 +48,19 @@ const testWheelComponent = () => {
   //react-custom-roulette states and functions
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
+
+  
   const handleSpinClick = () => {
-    if (!mustSpin) {
-      const newPrizeNumber = Math.floor(Math.random() * data.length);
+    if (!mustSpin && wheelData.length === 4) {
+      const newPrizeNumber = Math.floor(Math.random() * wheelData.length);
       setPrizeNumber(newPrizeNumber);
       setMustSpin(true);
     }
-  }
+  };
+
   const[wheelData, setWheelData] = useState(data)  //useState to handle the adding of new animes
 
   
-
-
 //function to the addition of animes, soon will add from mal api
   const handleGetAnimeClick = () => {
     let updatedData = wheelData;
@@ -70,11 +71,12 @@ const testWheelComponent = () => {
     //Gets a random index from the anime useState
     const randomIndex = Math.floor(Math.random() * animes.length);
     const randomAnime = animes[randomIndex];
-
+    
+    
     setWheelData([...updatedData, { option: randomAnime }]);  //the new wheel data, we use the spread operator to create
                                                     //a new array with all the data from the wheeldata plus the new options
     setAnimes(animes.filter((_, index) => index !== randomIndex));
-                                                    
+                                    
   }
 
   return (

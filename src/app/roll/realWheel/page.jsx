@@ -1,12 +1,16 @@
 //Page for the real wheel that you'll be able to use once a month
 
-import OfficialWheelComponent from '@/components/wheel/officialWheelComponent';
 import styles from './realWheel.module.css'
+import dynamic from 'next/dynamic';
 
+
+const OfficialWheelComponent = dynamic(() => import('@/components/wheel/officialWheelComponent'), {
+    ssr: false, 
+  });
 
 export const metadata = {
-    title: "Anime Wheel - AniRoll",
-    description: "Anime Wheel page",
+    title: "Test - AniRoll",
+    description: "Test Anime Wheel page",
   };
 
 const officialWheelPage = () => {
