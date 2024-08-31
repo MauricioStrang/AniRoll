@@ -1,5 +1,5 @@
 'use server'
-import { User, Profile } from "./models";
+import { User, Profile, Roll } from "./models";
 import { connectToDb } from "./utils"
 import { signIn, signOut } from "./auth";
 import bcrypt from 'bcryptjs'
@@ -71,3 +71,25 @@ export const login = async(previousState, formData) =>{
         throw err;
     }
 }
+
+
+//function to upload roll to the db
+export const uploadRoll= async (userId, title, picture) => {  //the params that we passed in the function from the rollPage
+    try {
+        await connectToDb();
+
+        const newRoll = new Roll({
+            userId,
+            title,
+            picture
+        });
+
+        await newRoll.save();
+        console.log('Roll saved to db');
+
+    } catch (err) {
+        console.log(err, 'could not save new roll to db');
+        return { error: 'Something went wrong' };
+    }
+};
+

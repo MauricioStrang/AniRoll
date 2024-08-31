@@ -76,8 +76,6 @@ export const getRolls = async () =>{
 
 
 
-
-
 export const updateProfileBio = async (slug, newBio) => {
     try {
         await connectToDb();

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import styles from './officialWheelComponent.module.css'
 import { Wheel } from 'react-custom-roulette'
+import { uploadRoll } from '@/lib/actions'
 
 
 const data = [
@@ -12,7 +13,7 @@ const data = [
 
 const OfficialWheelComponent = () => {
 
-  const [animes, setAnimes] = useState([]); //anime list array holder
+  const [animeTitles, setAnimeTitles] = useState([]); //anime list array holder
 
 
   //use effect to load the animes from the api
@@ -31,8 +32,8 @@ const OfficialWheelComponent = () => {
             throw new Error('Failed to fetch plan to watch list');
           } 
           const data = await response.json();
-          const titles = data.data.map((anime) => anime.node.title);
-          setAnimes(titles);
+          const titles = data.data.map((anime) => anime.node.title); //variable if I want to just return the titles
+          setAnimeTitles(titles);
           
         } catch (error) {
           console.log(error.message);
@@ -46,11 +47,16 @@ const OfficialWheelComponent = () => {
   //react-custom-roulette states and functions
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
+
+
   const handleSpinClick = () => {
     if (!mustSpin) {
       const newPrizeNumber = Math.floor(Math.random() * data.length);
       setPrizeNumber(newPrizeNumber);
+      console.log(wheelData[newPrizeNumber]);
       setMustSpin(true);
+
+      uploadRoll()
     }
   }
   const[wheelData, setWheelData] = useState(data)  //useState to handle the adding of new animes
@@ -66,12 +72,12 @@ const OfficialWheelComponent = () => {
     }
 
     //Gets a random index from the anime useState
-    const randomIndex = Math.floor(Math.random() * animes.length);
-    const randomAnime = animes[randomIndex];
+    const randomIndex = Math.floor(Math.random() * animeTitles.length);
+    const randomAnime = animeTitles[randomIndex];
 
     setWheelData([...updatedData, { option: randomAnime }]);  //the new wheel data, we use the spread operator to create
                                                     //a new array with all the data from the wheeldata plus the new options
-    setAnimes(animes.filter((_, index) => index !== randomIndex));
+    setAnimeTitles(animeTitles.filter((_, index) => index !== randomIndex));
                                                     
   }
 
