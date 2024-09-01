@@ -14,7 +14,7 @@ const data = [
 const OfficialWheelComponent = () => {
 
   const [animeTitles, setAnimeTitles] = useState([]); //anime list array holder
-
+  const [animeArray, setAnimeArray] = useState([])
 
   //use effect to load the animes from the api
   useEffect(() => {
@@ -33,6 +33,7 @@ const OfficialWheelComponent = () => {
           } 
           const data = await response.json();
           const titles = data.data.map((anime) => anime.node.title); //variable if I want to just return the titles
+          setAnimeArray(data.data)
           setAnimeTitles(titles);
           
         } catch (error) {
