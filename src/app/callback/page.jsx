@@ -1,14 +1,19 @@
 //Page that handles the callback after the authorisation of the user from MAL
 //This page should only be able to be seen after the user authorized his MAL account and just for a brief moment
-
 "use client";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+
 
 const Callback = () => {
   const router = useRouter();
 
   useEffect(() => {
+
+    //Handle the metadata on client component
+    document.title = "Loading request...";
+    document.querySelector('meta[name="description"]').setAttribute("content", "Callback page");   
+
     const handleTokenExchange = async () => {
       //getting the authorisation code from the url query
       const params = new URLSearchParams(window.location.search);

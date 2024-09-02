@@ -24,11 +24,6 @@ const links = [
     title: "Roll",
     path: "/roll"
   },
-
-  {
-    title: "Test",
-    path: "/test"
-  }
 ];
 
 const Links = ({ session, profile }) => {            //we get the current user session and it's profile as params

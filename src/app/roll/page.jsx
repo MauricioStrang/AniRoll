@@ -1,10 +1,17 @@
 'use client'
 
+import { useEffect } from "react";
 import styles from "./rollHub.module.css"
 import { useRouter } from "next/navigation"
 
 
 const rollHub = ()=>{
+
+    useEffect(() => {
+        document.title = "Roll Hub - AniRoll";
+        document.querySelector('meta[name="description"]').setAttribute("content", "Roll hub page");   //useEffect to handle the metadata on client component
+      }, []);
+
 
     const router = useRouter()
 

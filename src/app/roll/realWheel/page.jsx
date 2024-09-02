@@ -9,8 +9,8 @@ const OfficialWheelComponent = dynamic(() => import('@/components/wheel/official
   });
 
 export const metadata = {
-    title: "Test - AniRoll",
-    description: "Test Anime Wheel page",
+    title: "Official Wheel - AniRoll",
+    description: "Official wheel page",
   };
 
 const officialWheelPage = () => {

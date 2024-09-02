@@ -2,6 +2,9 @@ import Image from "next/image";
 import styles from "./home.module.css"
 
 
+export const metadata = {
+  description: "Home page",
+};
 
 const Home= () => {
 

@@ -24,13 +24,14 @@ export const authConfig = {
                                          // we use the updated auth that uses the updated session
             
             const user = auth?.user;
+            const isOnCallbackPanel = request.nextUrl?.pathname.startsWith("/callback")
             const isOnUsersPanel = request.nextUrl?.pathname.startsWith("/profiles")
             const isOnLoginPanel = request.nextUrl?.pathname.startsWith("/login")
             const isOnRollPanel = request.nextUrl?.pathname.startsWith("/roll")
             const isOnRegisterPanel = request.nextUrl?.pathname.startsWith("/register")
 
             //returning false means that you can't go to that Panel
-            if((isOnUsersPanel || isOnRollPanel) && !user){
+            if((isOnUsersPanel || isOnRollPanel || isOnCallbackPanel) && !user){
                 return false;
             }
 

@@ -1,11 +1,11 @@
-
+//page to handle the history of official anime rolls made each month from the users
 import { getRolls } from "@/lib/data";
 import styles from "./history.module.css"
 import RollCard from "@/components/rollCard/rollCard";
 
 export const metadata = {
-    title: "Roll History - AniRoll",
-    description: "History Page",
+    title: "History - AniRoll",
+    description: "History page",
   };
 
 const historyPage = async()=>{

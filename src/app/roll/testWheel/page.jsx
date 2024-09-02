@@ -8,6 +8,11 @@ const TestWheelComponent = dynamic(() => import('@/components/wheel/testWheelCom
   ssr: false, 
 });
 
+export const metadata = {
+  title: "Test Wheel - AniRoll",
+  description: "Test wheel page",
+};
+
 const TestWheel = () => {
 
 return (
